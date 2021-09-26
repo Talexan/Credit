@@ -1,0 +1,26 @@
+{
+    "name": "talexan/attributes",
+    "description": "Custom attributes catalog products module",
+    "require": {
+        "php": "~7.2.0||~7.3.0",
+        "magento/framework": "102.0.*",
+        "magento/module-backend": "101.0.*",
+        "magento/module-catalog": "103.0.*",
+        "magento/module-customer": "103.0.*",
+        "magento/module-eav": "102.1.1"
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Talexan\\Attributes\\": ""
+        }
+    },
+    "version": "1.0.0"
+}
