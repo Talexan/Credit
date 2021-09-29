@@ -1,5 +1,5 @@
 <?php
-namespace Learning\ClothingMaterial\Model\Attribute\Frontend;
+namespace Talexan\Attributes\Model\Attribute\Frontend;
 
 class MyAttEnable extends \Magento\Eav\Model\Entity\Attribute\Frontend\AbstractFrontend
 {

@@ -4,6 +4,7 @@
 
     use Magento\Framework\Setup\Patch\DataPatchInterface;
     use Magento\Framework\Setup\Patch\PatchRevertableInterface;
+ 
 
     /**
      */
@@ -20,13 +21,12 @@
           */
         private $eavSetupFactory;
 
-
         /**
          * @param \Magento\Framework\Setup\ModuleDataSetupInterface $moduleDataSetup
          */
         public function __construct(
             \Magento\Framework\Setup\ModuleDataSetupInterface $moduleDataSetup,
-            \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
+            \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory            
         ) {
             /**
              * If before, we pass $setup as argument in install/upgrade function, from now we start
@@ -46,7 +46,8 @@
             //Please note, that one patch is responsible only for one setup version
             //So one UpgradeData can consist of few data patches
 
-            $eavSetup = $this->eavSetupFactory->create();
+            $eavSetup = $this->eavSetupFactory->create(
+                                    ['setup' => $this->moduleDataSetup]);
             $eavSetup->addAttribute(\Magento\Catalog\Model\Product::ENTITY,
                 'certificates_ukr',
             [
@@ -57,6 +58,7 @@
                 'frontend' => 'Talexan\Attributes\Model\Attribute\Frontend\Certificates',
                 'backend' => 'Talexan\Attributes\Model\Attribute\Backend\Certificates',
                 'required' => false,
+                'default' => 'ISO9001, ISO14001, ISO22000',
                 'sort_order' => 50,
                 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
                 'is_used_in_grid' => true,
@@ -64,39 +66,37 @@
                 'is_filterable_in_grid' => true,
                 'visible' => true,
                 'is_html_allowed_on_front' => true,
-                'visible_on_front' => true,
+                'visible_on_front' => false,
                 'apply_to' => 'simple,groped,configurable,virtual,bundle,downloadable',
-                'attribute_set' => 'Default',
-                'option' => [
-
-                    'values' => ['iso9001, iso14001, iso22000'],
-             
-                ]
+                'attribute_set' => 'Bottom'
             ]);
 
         $eavSetup->addAttribute(\Magento\Catalog\Model\Product::ENTITY,
                 'is_enabled_my_att_show',
             [
-                'group' => 'Product Details',
+                    'group' => 'Product Details',
                     'type' => 'int',
-                    'backend' => \Talexan\Attributes\Model\Attribute\Backend\MyAttEnable,
-                    'frontend' => \Talexan\Attributes\Model\Attribute\Frontend\MyAttEnable,
+                    'backend' => \Talexan\Attributes\Model\Attribute\Backend\MyAttEnable::class,
+                    'frontend' => \Talexan\Attributes\Model\Attribute\Frontend\MyAttEnable::class,
                     'label' => 'Enabled Show Certificates of Ukraine',
                     'input' => 'boolean',
                     'class' => '',
                     'source' => \Magento\Eav\Model\Entity\Attribute\Source\Boolean::class,
                     'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
                     'visible' => true,
-                    'required' => false,
+                    'is_used_in_grid' => true,
+                    'is_visible_in_grid' => true,
+                    'required' => true,
+                    'sort_order' => 51,
                     'user_defined' => false,
                     'default' => '1',
                     'searchable' => false,
                     'filterable' => false,
                     'comparable' => false,
                     'visible_on_front' => false,
-                    'used_in_product_listing' => false,
                     'unique' => false,
-                    'apply_to' => 'simple,configurable,virtual,bundle,downloadable'
+                    'apply_to' => 'simple,configurable,virtual,bundle,downloadable',
+                    'attribute_set' => 'Bottom'
             ]);
 
             $this->moduleDataSetup->getConnection()->endSetup();
@@ -144,4 +144,12 @@
              */
             return [];
         }
+
+        /**
+         * {@inheritdoc}
+         */ 
+        public static function  getVersion( ) 
+        { 
+            return  '2.0.0'; 
+        } 
     }

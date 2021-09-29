@@ -35,7 +35,7 @@ class CertificatesUa extends \Magento\Catalog\Block\Product\View {
     }
 
     /**
-     * retrieve value attribute certificates_ukr
+     * retrieve custom attribute certificates_ukr
      * @return string html
      */
     public function getCertificates(){
@@ -43,22 +43,17 @@ class CertificatesUa extends \Magento\Catalog\Block\Product\View {
         $resultHtml = "<div class=\"product attribute certificates\" style=\"display: none;\">
                        </div>";
 
-        $eavSetup = $this->eavSetupFactory->create();
-        $isMyAttShow = $eavSetup->getAttribute(\Magento\Catalog\Model\Product::ENTITY,
-        'is_enabled_my_att_show', "value");
+        $product = $this->getProduct();
+        $isMyAttShow = $product->getData('is_enabled_my_att_show');
+
         if ($isMyAttShow){
-            $certificatesAttr = $eavSetup->getAttribute(\Magento\Catalog\Model\Product::ENTITY,
-            'certificates_ukr', "value");
-
-            if (isset(certificatesAttr)){
-                $resultHtml = "<div class=\"product attribute certificates\" style=\"display: visible;\">
-                               <strong class=\"type\">Certificates:</strong>
-                               <div class=\"value\" itemprop=\"certificates\">
-                               $isMyAttShow</div>
-                               </div>";
+            $certificatesAttr = $product->getData( 'certificates_ukr');
+            $resultHtml = "<div class=\"product attribute certificates\" style=\"display: visible;\">
+                           <strong class=\"type\">Certificates:</strong>
+                           <div class=\"value\" itemprop=\"certificates\">
+                            $certificatesAttr</div>
+                           </div>";
             }
-
-        }
         
         return $resultHtml;
     }
