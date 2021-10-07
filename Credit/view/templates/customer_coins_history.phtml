@@ -9,20 +9,21 @@
 
 /** @var \Magento\Sales\Block\Order\History $block */
 ?>
-<?php $_orders = $block->getOrders(); ?>
+<?php $_coins = $block->getCoins(); ?>
 <?= $block->getChildHtml('info') ?>
-<?php if ($_orders && count($_orders)) : ?>
+<?php if ($_coins && count($_coins)) : ?>
     <div class="table-wrapper orders-history">
         <table class="data table table-order-items history" id="my-orders-table">
-            <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+            <caption class="table-caption"><?= $block->escapeHtml(__('Coins')) ?></caption>
             <thead>
                 <tr>
-                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Order #')) ?></th>
-                    <th scope="col" class="col date"><?= $block->escapeHtml(__('Date')) ?></th>
-                    <?= $block->getChildHtml('extra.column.header') ?>
-                    <th scope="col" class="col total"><?= $block->escapeHtml(__('Order Total')) ?></th>
-                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
-                    <th scope="col" class="col actions"><?= $block->escapeHtml(__('Action')) ?></th>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Order#')) ?></th>
+                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Occasion')) ?></th>
+                    <th scope="col" class="col total"><?= $block->escapeHtml(__('Amount Purchase')) ?></th>
+                    <th scope="col" class="col total"><?= $block->escapeHtml(__('Coins Received')) ?></th>
+                    <th scope="col" class="col total"><?= $block->escapeHtml(__('Coins Spend')) ?></th>
+                    <th scope="col" class="col date"><?= $block->escapeHtml(__('Date Purchase')) ?></th>
+                <!--?-->    <?= $block->getChildHtml('extra.column.header') ?>
                 </tr>
             </thead>
             <tbody>
