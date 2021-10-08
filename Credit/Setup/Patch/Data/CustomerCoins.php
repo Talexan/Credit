@@ -3,7 +3,7 @@
     namespace Talexan\Credit\Setup\Patch\Data;
 
     use Magento\Framework\Setup\Patch\DataPatchInterface;
-    use Magento\Framework\Setup\Patch\PatchRevertableInterface;cd
+    use Magento\Framework\Setup\Patch\PatchRevertableInterface;
     use Magento\Customer\Model\Customer;
  
 
