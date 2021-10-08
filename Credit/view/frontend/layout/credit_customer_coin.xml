@@ -7,7 +7,7 @@
             </action>
         </referenceBlock>
         <referenceContainer name="content">
-            <block class="Talexan\Credit\Block\Frontend\CustomerCoinHistory" name="customer_coins_tab" template="Talexan_Credit::customer_coins_history.phtml" />
+            <block class="Talexan\Credit\Block\Customer\CoinHistory" name="customer-coins-tab" template="Talexan_Credit::customer_coins_history.phtml" />
         </referenceContainer>
     </body>
 </page>
