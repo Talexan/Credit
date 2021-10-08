@@ -3,14 +3,13 @@
     namespace Talexan\Credit\Setup\Patch\Data;
 
     use Magento\Framework\Setup\Patch\DataPatchInterface;
-    use Magento\Framework\Setup\Patch\PatchRevertableInterface;
-    use Magento\Eav\Model\Config;
+    use Magento\Framework\Setup\Patch\PatchRevertableInterface;cd
     use Magento\Customer\Model\Customer;
  
 
     /**
      */
-    class CertificatesUaAttributes implements DataPatchInterface, PatchRevertableInterface
+    class CustomerCoins implements DataPatchInterface, PatchRevertableInterface
     {
         /**
          * @var \Magento\Framework\Setup\ModuleDataSetupInterface
@@ -132,6 +131,6 @@
          */ 
         public static function  getVersion( ) 
         { 
-            return  '2.0.0'; 
+            return  '1.0.0'; 
         } 
     }

@@ -4,8 +4,7 @@
     <table name="customer_credit_talexan" resource="default" engine="innodb" comment="Credit History of Customers">
         <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" padding="10"
                 comment="Entity Id"/>
-        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" padding="10" default="NULL" 
-                comment="Customer Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" padding="10" comment="Customer Id"/>
         <column xsi:type="varchar" name="occasion" nullable="false" length="64" comment="Occasion for Getting Coins"/>
         <column xsi:type="decimal" name="amount_purchase" nullable="true" scale="4" precision="20" comment="Amount of Purchase"/>
         <column xsi:type="int" name="coins_received" nullable="true" padding="20" comment="Amount of Coins was Received by Customer in Order"/>
