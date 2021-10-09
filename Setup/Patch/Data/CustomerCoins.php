@@ -5,6 +5,7 @@
     use Magento\Framework\Setup\Patch\DataPatchInterface;
     use Magento\Framework\Setup\Patch\PatchRevertableInterface;
     use Magento\Customer\Model\Customer;
+    use \Magento\Eav\Setup\EavSetup;
  
 
     /**
