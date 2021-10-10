@@ -17,3 +17,9 @@ https://magento-stackexchange-com.translate.goog/questions/171777/how-to-use-ui-
 https://belvg-com.translate.goog/blog/ui-grid-component-on-the-front-end-in-magento-2.html?_x_tr_sl=en&_x_tr_tl=ru&_x_tr_hl=ru&_x_tr_pto=nui,sc
 https://devdocs-magento-com.translate.goog/guides/v2.4/ui_comp_guide/components/ui-listing-grid.html?_x_tr_sl=en&_x_tr_tl=ru&_x_tr_hl=ru&_x_tr_pto=nui,sc
 https://www-magedelight-com.translate.goog/resources/how-to-create-ui-component-grid-and-form-in-magento-2/?_x_tr_sl=en&_x_tr_tl=ru&_x_tr_hl=ru&_x_tr_pto=nui,sc
+https://habr.com/ru/company/rshb/blog/561442/
+https://devdocs.magento.com/guides/v2.4/extension-dev-guide/admin-grid.html
+https://devdocs.magento.com/guides/v2.4/ui_comp_guide/components/ui-listing-grid.html
+https://devdocs.magento.com/guides/v2.4/ui_comp_guide/concepts/ui_comp_config_flow_concept.html
+https://devdocs.magento.com/guides/v2.4/ui_comp_guide/concepts/ui_comp_xmldeclaration_concept.html
+https://www.mageplaza.com/devdocs/creat-a-ui-form-in-magento-2.html

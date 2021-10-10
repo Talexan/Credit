@@ -9,7 +9,7 @@
         <column xsi:type="decimal" name="amount_purchase" nullable="true" scale="4" precision="20" comment="Amount of Purchase"/>
         <column xsi:type="int" name="coins_received" nullable="true" padding="20" comment="Amount of Coins was Received by Customer in Order"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
-                comment="Date of Purchase"/>
+                comment="Date of Created"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
          <!--?-->   <column name="customer_id"/>
