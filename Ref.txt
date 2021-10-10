@@ -23,3 +23,11 @@ https://devdocs.magento.com/guides/v2.4/ui_comp_guide/components/ui-listing-grid
 https://devdocs.magento.com/guides/v2.4/ui_comp_guide/concepts/ui_comp_config_flow_concept.html
 https://devdocs.magento.com/guides/v2.4/ui_comp_guide/concepts/ui_comp_xmldeclaration_concept.html
 https://www.mageplaza.com/devdocs/creat-a-ui-form-in-magento-2.html
+https://ccbill.com/kb/magento-add-payment-method
+https://devdocs.magento.com/guides/v2.4/howdoi/checkout/checkout_payment.html
+https://devdocs.magento.com/guides/v2.4/payments-integrations/base-integration/integration-intro.html
+https://www.mageplaza.com/devdocs/magento-2-create-payment-method/
+https://meetanshi.com/blog/create-payment-method-in-magento-2/
+https://webkul.com/blog/create-custom-payment-method-magento2/
+https://www.simicart.com/blog/magento-2-checkout/
+https://www.classyllama.com/blog/how-to-create-payment-method-magento-2
