@@ -34,3 +34,4 @@ https://www.classyllama.com/blog/how-to-create-payment-method-magento-2
 https://www.atlassian.com/ru/git/tutorials/using-branches/git-checkout
 https://www.atlassian.com/ru/git/tutorials/undoing-changes
 https://github.com/magento/magento2/tree/2.4/app/code/Magento/Paypal/view/frontend/web/template/payment
+https://magento.stackexchange.com/questions/291236/stripe-payment-method-magento2
