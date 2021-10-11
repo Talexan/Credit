@@ -8,5 +8,12 @@
                 <show_message_PDP>0</show_message_PDP>
             </general>
         </loyalty_program>
+        <payment>
+            <encomage_coin>
+              <title>Loyalty Coin</title>
+              <model>Talexan\Credit\Model\Payment\Method\LoyaltyCoin</model>
+              <active>1</active>
+            </encomage_coin>
+        </payment>
     </default>
 </config>

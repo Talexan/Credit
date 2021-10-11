@@ -31,3 +31,5 @@ https://meetanshi.com/blog/create-payment-method-in-magento-2/
 https://webkul.com/blog/create-custom-payment-method-magento2/
 https://www.simicart.com/blog/magento-2-checkout/
 https://www.classyllama.com/blog/how-to-create-payment-method-magento-2
+https://www.atlassian.com/ru/git/tutorials/using-branches/git-checkout
+https://www.atlassian.com/ru/git/tutorials/undoing-changes

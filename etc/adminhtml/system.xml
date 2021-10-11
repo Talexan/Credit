@@ -30,5 +30,17 @@
                 </field>
             </group>
         </section>
+        <section id="payment">
+            <group id="encomage_coin" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Encomage Coins</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Credit coin payment method</label>
+                </field>
+            </group>
+        </section>
     </system>
 </config>
