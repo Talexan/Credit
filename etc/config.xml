@@ -9,11 +9,11 @@
             </general>
         </loyalty_program>
         <payment>
-            <encomage_coin>
+            <loyaltycoin>
               <title>Loyalty Coin</title>
               <model>Talexan\Credit\Model\Payment\Method\LoyaltyCoin</model>
               <active>1</active>
-            </encomage_coin>
+            </loyaltycoin>
         </payment>
     </default>
 </config>
