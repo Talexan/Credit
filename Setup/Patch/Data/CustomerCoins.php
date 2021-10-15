@@ -74,11 +74,10 @@
                                     $coinsAttribute = $this->eavConfig->getAttribute(Customer::ENTITY, 'customer_coins');
                             
                                     // more used_in_forms ['adminhtml_checkout','adminhtml_customer','adminhtml_customer_address','customer_account_edit','customer_address_edit','customer_register_address']
-                                    $coinsAttribute->setData(
-                                        'used_in_forms',
-                                        ['adminhtml_customer']
-                            
-                                    );
+//                                    $coinsAttribute->setData(
+//                                        'used_in_forms',
+//                                        ['adminhtml_customer']
+//                                    );
                                     $coinsAttribute->save();
 
             $this->moduleDataSetup->getConnection()->endSetup();
