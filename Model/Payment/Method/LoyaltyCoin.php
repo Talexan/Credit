@@ -3,6 +3,7 @@ namespace Talexan\Credit\Model\Payment\Method;
 
 use Talexan\Credit\Model\CoinFactory;
 use Talexan\Credit\Model\Coin;
+use Magento\Directory\Helper\Data as DirectoryHelper;
 
 /**
  * Pay In Store payment method model
@@ -31,7 +32,7 @@ class LoyaltyCoin extends \Magento\Payment\Model\Method\AbstractMethod
      * @param \Magento\Framework\Api\AttributeValueFactory $customAttributeFactory
      * @param \Magento\Payment\Helper\Data $paymentData
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param Logger $logger
+     * @param \Magento\Payment\Model\Method\Logger $logger
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
      * @param array $data

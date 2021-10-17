@@ -2,6 +2,8 @@
 
 namespace Talexan\Credit\Block\View;
 
+use Magento\Catalog\Api\ProductRepositoryInterface;
+
 class ReceivedCoin extends \Magento\Catalog\Block\Product\View {
 
     /**
