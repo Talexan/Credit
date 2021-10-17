@@ -11,7 +11,7 @@ class LoyaltyData extends AbstractHelper
      * $this->helperData->getGeneralConfig('enable');
      */ 
 
-	const XML_PATH_LOAYLTY_PROGRAM = 'loyalty_program/';
+	const XML_PATH_LOAYLTY_PROGRAM = 'loyalty_programm/';
 
 	public function getConfigValue($field, $storeId = null)
 	{
