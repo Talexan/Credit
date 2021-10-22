@@ -1,8 +1,16 @@
 <?xml version="1.0"?>
-<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<!--<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <container name="content" label="Root">
         <uiComponent name="customer_credit_form"/>
         <uiComponent name="credit_history_listing"/>
     </container>
    
-</layout>
+</layout>-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="customer_credit_form"/>
+            <uiComponent name="credit_history_listing"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,6 +1,6 @@
 <?php
 
-    namespace Talexant\Credit\Model\ResourceModel\Coin;
+    namespace Talexan\Credit\Model\ResourceModel\Coin;
 
     class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Talexant\Credit\Block\Customer;
+namespace Talexan\Credit\Block\Customer;
 
 use \Magento\Framework\App\ObjectManager;
 

@@ -1,6 +1,6 @@
 <?php 
 
-    namespace Talexant\Credit\Controller\Customer;  
+    namespace Talexan\Credit\Controller\Customer;  
 
     use Magento\Framework\View\Result\PageFactory;
 
@@ -16,8 +16,8 @@
      * @param PageFactory $resultPageFactory
      */
     public function __construct(
-        Context $context,
-        PageFactory $resultPageFactory
+        \Magento\Framework\App\Action\Context $context,
+		\Magento\Framework\View\Result\PageFactory $resultPageFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);

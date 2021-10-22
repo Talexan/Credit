@@ -4,7 +4,7 @@
     use Magento\Customer\Controller\RegistryConstants;
     use Magento\Ui\Component\Layout\Tabs\TabInterface;
  
-class Credit  extends \Magento\Framework\View\Element\Template implements TabInterface
+class CoinTab  extends \Magento\Framework\View\Element\Template implements TabInterface
 {
     /**
      * Core registry
@@ -95,6 +95,6 @@ class Credit  extends \Magento\Framework\View\Element\Template implements TabInt
      */
     public function isAjaxLoaded()
     {
-        return true;
+        return false;
     }
 }

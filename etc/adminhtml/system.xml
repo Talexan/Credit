@@ -11,18 +11,19 @@
             <resource>Talexan_Credit::config_encomage</resource>
             <group id="general" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Encomage Coin Credit</label>
-                <field id="enabled" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="percent_purchase" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="percent_purchase" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Percent of purchase</label>
-                    <validate>validate-number validate-zero-or-greater</validate>
+                    <validate>required-entry validate-number validate-zero-or-greater</validate>
+                    <tooltip>Enter the percentage of the purchase that the buyer will receive in credit coins</tooltip>
                     <depends>
                         <field id="enabled">1</field>
                     </depends>
                 </field>
-                <field id="show_message_PDP" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="show_message_PDP" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Show message on PDP</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
@@ -40,6 +41,7 @@
                 </field>
                 <field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Credit coin payment method</label>
+                    <comment>Title of payment method</comment>
                 </field>
             </group>
         </section>
