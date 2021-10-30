@@ -5,7 +5,7 @@
                 <arguments>
                     <argument name="path" xsi:type="string">credit/customer/coin</argument>
                     <argument name="label" xsi:type="string">My Coins</argument>
-                    <argument name="sortOrder" xsi:type="number">240</argument>
+                    <argument name="sortOrder" xsi:type="number">20</argument>
                 </arguments>
             </block>
         </referenceBlock>

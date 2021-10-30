@@ -16,11 +16,7 @@ class Coin extends \Magento\Customer\Controller\Adminhtml\Index
     {
        
         $this->initCurrentCustomer();
-//        $resultLayout = $this->resultLayoutFactory->create();
-//        return $resultLayout;
-        $resultPage = $this->resultPageFactory->create();
-        return $resultPage;
+        $resultLayout = $this->resultLayoutFactory->create();
+        return $resultLayout;
     }
- 
- 
 }

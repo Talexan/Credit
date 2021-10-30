@@ -95,6 +95,6 @@ class CoinTab  extends \Magento\Framework\View\Element\Template implements TabIn
      */
     public function isAjaxLoaded()
     {
-        return false;
+        return true;
     }
 }

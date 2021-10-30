@@ -3,6 +3,7 @@
 namespace Talexan\Credit\Block\Customer;
 
 use \Magento\Framework\App\ObjectManager;
+use Magento\Customer\Controller\RegistryConstants;
 
 /**
  * Talexan credit history block
@@ -29,6 +30,12 @@ class CoinHistory extends \Magento\Framework\View\Element\Template
      */
     protected $coins;
 
+     /**
+     * Core registry
+     *
+     * @var \Magento\Framework\Registry
+     */
+    protected $_coreRegistry;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -40,10 +47,12 @@ class CoinHistory extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory $coinCollectionFactory,
         \Magento\Customer\Model\Session $customerSession,
+        \Magento\Framework\Registry $registry,
         array $data = []
     ) {
         $this->_coinCollectionFactory = $coinCollectionFactory;
         $this->_customerSession = $customerSession;
+        $this->_coreRegistry = $registry;
         
         parent::__construct($context, $data);
     }
@@ -64,14 +73,21 @@ class CoinHistory extends \Magento\Framework\View\Element\Template
      */
     public function getCoins()
     {
-        if (!($customerId = $this->_customerSession->getCustomerId())) {
+ //       if (!($customerId = $this->_customerSession->getCustomerId())) {
+ //           return false;
+ //       }
+        $customerId = ($this->_coreRegistry->registry(RegistryConstants::CURRENT_CUSTOMER_ID))?:
+        $this->_customerSession->storage->_data['visitor_data']['customer_id'];
+
+        $probe = $this->_customerSession->storage->visitorData('customer_id');
+
+        if (!$customerId)
             return false;
-        }
-        if (!$this->coins) {
-            $this->coins = $this->_coinCollectionFactory->create()->addFieldToSelect('*')
+
+        $this->coins = $this->_coinCollectionFactory->create()->addFieldToSelect('*')
             ->addFieldToFilter('customer_id', $customerId)
             ->setOrder('created_at', 'desc');
-        }
+
         return $this->coins;
     }
 

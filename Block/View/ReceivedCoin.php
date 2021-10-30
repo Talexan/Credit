@@ -55,20 +55,9 @@ class ReceivedCoin extends \Magento\Catalog\Block\Product\View {
      */
     public function getReceivedCoin(){
 
-        $resultHtml = "<div class=\"product attribute received_coin\" style=\"display: none;\">
-                       </div>";
-
-        $isCoinAttShow = $this->loyaltyData->getGeneralConfig('show_message_PDP')
-                        && $this->loyaltyData->getGeneralConfig('enabled');
-
-        if ($isCoinAttShow){
             $receivedCoin = $this->getProduct()->getPrice()*$this->loyaltyData->getGeneralConfig('percent_purchase')/100; // a little logic ?????
-            $resultHtml = "<div class=\"product attribute received_coin\" style=\"display: visible;\">
-                            <strong class=\"type\">" . ($this->customerSession->isLoggedIn())? "": "Please, Sign In: " . "
-                            You Will Receive $receivedCoin Coins for Purchasing this Product</strong>";
-            }
         
-        return $resultHtml;
+        return $receivedCoin;
     }
 
 }
