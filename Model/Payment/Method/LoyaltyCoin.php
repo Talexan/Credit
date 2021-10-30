@@ -33,11 +33,11 @@ class LoyaltyCoin extends \Magento\Payment\Model\Method\AbstractMethod
      * @param \Magento\Payment\Helper\Data $paymentData
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Payment\Model\Method\Logger $logger
+     * @param Talexan\Credit\Model\CoinFactory $coinFactory
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
      * @param array $data
      * @param DirectoryHelper $directory
-     * @param Talexan\Credit\Model\CoinFactory $coinFactory
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -48,11 +48,11 @@ class LoyaltyCoin extends \Magento\Payment\Model\Method\AbstractMethod
         \Magento\Payment\Helper\Data $paymentData,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Payment\Model\Method\Logger $logger,
-        \Magento\Framework\Model\ResourceModel\AbstractResource $resource,
-        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection,
-        array $data,
-        DirectoryHelper $directory,
-        \Talexan\Credit\Model\CoinFactory $coinFactory
+        \Talexan\Credit\Model\CoinFactory $coinFactory,
+        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+        array $data = [],
+        DirectoryHelper $directory = null
     ) {
         parent::__construct(
             $context,
