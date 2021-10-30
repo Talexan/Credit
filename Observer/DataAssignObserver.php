@@ -54,7 +54,7 @@ class DataAssignObserver implements ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
        
-        $orderIds = $observer->getEvent()->getOrderIds();
+        $orderIds = $observer->getEvent()->getData('order')->getOrderIds();
         if (!$orderIds || !is_array($orderIds)) {
             return $this;
         }
