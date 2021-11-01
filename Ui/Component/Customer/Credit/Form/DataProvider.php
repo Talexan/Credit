@@ -25,25 +25,29 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
+     * @param Request $request
+     * @param CustomerRepositoryInterface $customerRepositoryInterface
+     * @param CollectionFactory $collectionFactory
      * @param array $meta
      * @param array $data
      * @param PoolInterface|null $pool
-     * @param Request $request
-     * @param CustomerRepositoryInterface $customerRepositoryInterface
      */
     public function __construct(
         $name,
         $primaryFieldName,
         $requestFieldName,
+        Request $request,
+        CustomerRepositoryInterface $customerRepositoryInterface,
+        CollectionFactory $collectionFactory,
         array $meta = [],
         array $data = [],
-        PoolInterface $pool = null,
-        Request $request,
-        CustomerRepositoryInterface $customerRepositoryInterface
+        PoolInterface $pool = null
     ) {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
         $this->request = $request;
         $this->customerRepositoryInterface = $customerRepositoryInterface;
+        $this->collectionFactory = $collectionFactory;
+        $this->collection = $this->collectionFactory->create();
     }
 
     /**
@@ -64,12 +68,12 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
 
     public function prepareData($data){
 
-        $customerId = $this->request->getParam('$customer_id');
+        $customerId = $this->request->getParam('id');
 
         if($customerId){
             try {
                     $model = $this->customerRepositoryInterface->getById($customerId);
-                    $amountCoins = $model->getData('customer_coins');        
+                    $amountCoins = $model->getCustomAttribute('customer_coins');//->getValue();        
             } catch (\Exception $e) {
                 // display error message
                 $this->messageManager->addErrorMessage($e->getMessage());

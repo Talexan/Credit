@@ -30,28 +30,29 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
-     * @param array $meta
-     * @param array $data
-     * @param PoolInterface|null $pool
      * @param Request $request
      * @param CustomerRepositoryInterface $customerRepositoryInterface
      * @param CollectionFactory $collectionFactory
+     * @param array $meta
+     * @param array $data
+     * @param PoolInterface|null $pool
      */
     public function __construct(
         $name,
         $primaryFieldName,
         $requestFieldName,
-        array $meta = [],
-        array $data = [],
-        PoolInterface $pool = null,
         Request $request,
         CustomerRepositoryInterface $customerRepositoryInterface,
-        CollectionFactory $collectionFactory
+        CollectionFactory $collectionFactory,
+        array $meta = [],
+        array $data = [],
+        PoolInterface $pool = null
     ) {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
         $this->request = $request;
         $this->customerRepositoryInterface = $customerRepositoryInterface;
         $this->collectionFactory = $collectionFactory;
+        $this->collection = $this->collectionFactory->create();
     }
 
     /**
@@ -72,11 +73,11 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
 
     public function prepareData($data){
 
-        $customerId = $this->request->getParam('$customer_id');
+        $customerId = $this->request->getParam('id');
 
         if($customerId){
             try {
-                    $collection = $this->collectionFactory->create()
+                    $this->getCollection()
                     ->addFieldToSelect('*')
                     ->addFieldToFilter('customer_id', $customerId)
                     ->setOrder('created_at','DESC')
@@ -87,7 +88,7 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
                 return $data;
             }
 
-            return $collection->getData();
+            return $this->getCollection()->getData();
         }
 
         return $data;

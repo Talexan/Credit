@@ -8,7 +8,7 @@ namespace Talexan\Credit\Controller\Adminhtml\Customer;
 class Coin extends \Magento\Customer\Controller\Adminhtml\Index
 {
     /**
-     * Customer compare grid
+     * Customer grid
      *
      * @return \Magento\Framework\View\Result\Page
      */
@@ -18,5 +18,15 @@ class Coin extends \Magento\Customer\Controller\Adminhtml\Index
         $this->initCurrentCustomer();
         $resultLayout = $this->resultLayoutFactory->create();
         return $resultLayout;
+    }
+
+    /**
+     * Customer grid
+     *
+     * @return \Magento\Framework\View\Result\Page
+     */
+    public function dispatch(\Magento\Framework\App\RequestInterface $request)
+    {
+        return $this->execute();
     }
 }

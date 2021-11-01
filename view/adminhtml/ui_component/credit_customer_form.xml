@@ -2,19 +2,16 @@
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">customer_credit_form.customer_credit_form_data_source</item>
+            <item name="provider" xsi:type="string">credit_customer_form.credit_customer_form_data_source</item>
         </item>
-        <item name="label" xsi:type="string" translate="true">Customer Coins</item>
-        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="label" xsi:type="string" translate="true">CREDIT INFORMATION</item>
     </argument>
     <settings>
-        <namespace>customer_credit_form</namespace>
-        <dataScope>data</dataScope>
         <deps>
-            <dep>customer_credit_form.customer_credit_form_data_source</dep>
+            <dep>credit_customer_form.credit_customer_form_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="customer_credit_form_data_source">
+    <dataSource name="credit_customer_form_data_source">
         <argument name="data" xsi:type="array">
             <item name="js_config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
@@ -26,18 +23,18 @@
         <dataProvider class="Talexan\Credit\Ui\Component\Customer\Credit\Form\DataProvider" name="customer_credit_form_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
-                <primaryFieldName>id</primaryFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
     <fieldset name="coins_set">
         <settings>
-            <label/>
+            <label translate="true">CREDIT COINS</label>
         </settings>
         <field name="customer_id" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">id</item>
+                    <item name="source" xsi:type="string">coins_set</item>
                 </item>
             </argument>
             <settings>
@@ -49,12 +46,13 @@
         <field name="amount_coins" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">id</item>
+                    <item name="source" xsi:type="string">coins_set</item>
                 </item>
                 <item name="disabled" xsi:type="boolean">true</item>
             </argument>
             <settings>
                 <dataType>text</dataType>
+                <visible>true</visible>
                 <label translate="true">Amount of coins</label>
                 <dataScope>customer_coins</dataScope>
             </settings>
@@ -62,7 +60,7 @@
         <field name="input_coins" sortOrder="20" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">id</item>
+                    <item name="source" xsi:type="string">coins_set</item>
                 </item>
             </argument>
             <settings>
@@ -70,6 +68,7 @@
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
                 <dataType>number</dataType>
+                <visible>true</visible>
                 <label translate="true">Input the amount that the user will receive</label>
                 <dataScope>coins_received</dataScope>
             </settings>
