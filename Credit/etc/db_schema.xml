@@ -5,9 +5,8 @@
         <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" padding="10"
                 comment="Entity Id"/>
         <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" padding="10" comment="Customer Id"/>
-        <column xsi:type="varchar" name="occasion" nullable="false" length="64" comment="Occasion for Getting Coins"/>
-        <column xsi:type="decimal" name="amount_purchase" nullable="true" scale="4" precision="20" comment="Amount of Purchase"/>
-        <column xsi:type="int" name="coins_received" nullable="true" padding="20" comment="Amount of Coins was Received by Customer in Order"/>
+        <column xsi:type="float" name="coins_received" nullable="true" precision="10" scale="3" comment="Amount of Coins was Received by Customer"/>
+        <column xsi:type="smallint" name="occasion" unsigned="true" nullable="false" comment="Occasion for Getting Coins"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Date of Created"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">

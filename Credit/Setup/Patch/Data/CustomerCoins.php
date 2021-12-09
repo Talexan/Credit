@@ -1,137 +1,139 @@
 <?php
 
-    namespace Talexan\Credit\Setup\Patch\Data;
+namespace Talexan\Credit\Setup\Patch\Data;
 
-    use Magento\Framework\Setup\Patch\DataPatchInterface;
-    use Magento\Framework\Setup\Patch\PatchRevertableInterface;
-    use Magento\Customer\Model\Customer;
-    use \Magento\Eav\Setup\EavSetup;
- 
+use Exception;
+use Magento\Customer\Api\CustomerMetadataInterface;
+use Magento\Customer\Model\Customer;
+use Magento\Customer\Model\ResourceModel\Attribute as AttributeResource;
+use Magento\Customer\Setup\CustomerSetup;
+use Magento\Customer\Setup\CustomerSetupFactory;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Framework\Setup\Patch\DataPatchInterface;
+use Psr\Log\LoggerInterface;
+
+/**
+ * Creates a customer attribute for managing a customer's credit coins
+ */
+class CustomerCoins implements DataPatchInterface
+{
+    /**
+     * @var ModuleDataSetupInterface
+     */
+    private $moduleDataSetup;
 
     /**
+     * @var CustomerSetup
      */
-    class CustomerCoins implements DataPatchInterface, PatchRevertableInterface
-    {
-        /**
-         * @var \Magento\Framework\Setup\ModuleDataSetupInterface
-         */
-        private $moduleDataSetup;
+    private $customerSetup;
 
-         /**
-          * Eav setup factory
-          * @var \Magento\Eav\Setup\EavSetupFactory
-          */
-        private $eavSetupFactory;
+    /**
+     * @var AttributeResource
+     */
+    private $attributeResource;
 
-        /**
-         * @var Magento\Eav\Model\Config
-         */
-        private $eavConfig;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
-        /**
-         * @param \Magento\Framework\Setup\ModuleDataSetupInterface $moduleDataSetup
-         */
-        public function __construct(
-            \Magento\Framework\Setup\ModuleDataSetupInterface $moduleDataSetup,
-            \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
-            \Magento\Eav\Model\Config $eavConfig            
-        ) {
-            /**
-             * If before, we pass $setup as argument in install/upgrade function, from now we start
-             * inject it with DI. If you want to use setup, you can inject it, with the same way as here
-             */
-            $this->moduleDataSetup = $moduleDataSetup;
-            $this->eavSetupFactory = $eavSetupFactory;
-            $this->eavConfig = $eavConfig;
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function apply()
-        {
-            $this->moduleDataSetup->getConnection()->startSetup();
-            //The code that you want apply in the patch
-            //Please note, that one patch is responsible only for one setup version
-            //So one UpgradeData can consist of few data patches
-
-            $eavSetup = $this->eavSetupFactory->create(
-                                    ['setup' => $this->moduleDataSetup]);
-                                    $eavSetup->addAttribute(
-                                        Customer::ENTITY,
-                                        'customer_coins',
-                                        [
-                                            'type'         => 'int',
-                                            'label'        => 'Amount of coins',
-                                            'input'        => 'text',
-                                            'required'     => false,
-                                            'visible'      => true,
-                                            'user_defined' => true,
-                                            'position'     => 999,
-                                            'system'       => 0,
-                                        ]
-                                    );
-                                    $coinsAttribute = $this->eavConfig->getAttribute(Customer::ENTITY, 'customer_coins');
-                            
-                                    // more used_in_forms ['adminhtml_checkout','adminhtml_customer','adminhtml_customer_address','customer_account_edit','customer_address_edit','customer_register_address']
-                                    $coinsAttribute->setData(
-                                        'used_in_forms',
-                                        ['adminhtml_customer']
-                            
-                                    );
-                                    $coinsAttribute->save();
-
-            $this->moduleDataSetup->getConnection()->endSetup();
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public static function getDependencies()
-        {
-            /**
-             * This is dependency to another patch. Dependency should be applied first
-             * One patch can have few dependencies
-             * Patches do not have versions, so if in old approach with Install/Ugrade data scripts you used
-             * versions, right now you need to point from patch with higher version to patch with lower version
-             * But please, note, that some of your patches can be independent and can be installed in any sequence
-             * So use dependencies only if this important for you
-             */
-            return []; // No dependencies
-        }
-
-        public function revert()
-        {
-            $this->moduleDataSetup->getConnection()->startSetup();
-            //Here should go code that will revert all operations from `apply` method
-            //Please note, that some operations, like removing data from column, that is in role of foreign key reference
-            //is dangerous, because it can trigger ON DELETE statement
-            
-            $eavSetup = $this->eavSetupFactory->create();
-            $eavSetup->removeAttribute(Customer::ENTITY, 'customer_coins');
-            
-            
-            $this->moduleDataSetup->getConnection()->endSetup();
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function getAliases()
-        {
-            /**
-             * This internal Magento method, that means that some patches with time can change their names,
-             * but changing name should not affect installation process, that's why if we will change name of the patch
-             * we will add alias here
-             */
-            return [];
-        }
-
-        /**
-         * {@inheritdoc}
-         */ 
-        public static function  getVersion( ) 
-        { 
-            return  '1.0.0'; 
-        } 
+    /**
+     * Constructor
+     *
+     * @param ModuleDataSetupInterface $moduleDataSetup
+     * @param CustomerSetupFactory $customerSetupFactory
+     * @param AttributeResource $attributeResource
+     * @param LoggerInterface $logger
+     */
+    public function __construct(
+        ModuleDataSetupInterface $moduleDataSetup,
+        CustomerSetupFactory $customerSetupFactory,
+        AttributeResource $attributeResource,
+        LoggerInterface $logger
+    ) {
+        $this->moduleDataSetup = $moduleDataSetup;
+        $this->customerSetup = $customerSetupFactory->create(['setup' => $moduleDataSetup]);
+        $this->attributeResource = $attributeResource;
+        $this->logger = $logger;
     }
+
+    /**
+     * Get array of patches that have to be executed prior to this.
+     *
+     * Example of implementation:
+     *
+     * [
+     *      \Vendor_Name\Module_Name\Setup\Patch\Patch1::class,
+     *      \Vendor_Name\Module_Name\Setup\Patch\Patch2::class
+     * ]
+     *
+     * @return string[]
+     */
+    public static function getDependencies(): array
+    {
+        return [];
+    }
+
+    /**
+     * Get aliases (previous names) for the patch.
+     *
+     * @return string[]
+     */
+    public function getAliases(): array
+    {
+        return [];
+    }
+
+    /**
+     * Run code inside patch
+     */
+    public function apply()
+    {
+        // Start setup
+        $this->moduleDataSetup->getConnection()->startSetup();
+
+        try {
+            // Add customer attribute with settings
+            $this->customerSetup->addAttribute(
+                CustomerMetadataInterface::ENTITY_TYPE_CUSTOMER,
+                'customer_coins',
+                [
+                    'label' => 'Amount of credit coins',
+                    'required' => 0,
+                    'position' => 100,
+                    'system' => 0,
+                    'user_defined' => 1,
+                    'is_used_in_grid' => 1,
+                    'is_visible_in_grid' => 1,
+                    'is_filterable_in_grid' => 1,
+                    'is_searchable_in_grid' => 1,
+                ]
+            );
+
+            // Add attribute to default attribute set and group
+            $this->customerSetup->addAttributeToSet(
+                CustomerMetadataInterface::ENTITY_TYPE_CUSTOMER,
+                CustomerMetadataInterface::ATTRIBUTE_SET_ID_CUSTOMER,
+                null,
+                'customer_coins'
+            );
+
+            // Get the newly created attribute's model
+            $attribute = $this->customerSetup->getEavConfig()
+                ->getAttribute(Customer::ENTITY, 'customer_coins');
+
+            // Make attribute visible in Admin customer form
+            $attribute->setData('used_in_forms', [
+                'adminhtml_customer'
+           ]);
+
+            // Save attribute using its resource model
+            $this->attributeResource->save($attribute);
+        } catch (Exception $e) {
+            $this->logger->err($e->getMessage());
+        }
+
+        // End setup
+        $this->moduleDataSetup->getConnection()->endSetup();
+    }
+}

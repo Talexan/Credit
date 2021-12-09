@@ -1,29 +1,51 @@
 <?php
 
-    namespace Talexan\Credit\Model;
+namespace Talexan\Credit\Model;
 
     class Coin extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\DataObject\IdentityInterface
     {
-	    const CACHE_TAG = 'customer_credit_talexan';
+        const TYPE_PURCHASE_PRODUCT = 1;
+        const TYPE_SET_ADMIN = 2;
+        const TYPE_GLOBAL_PROMOTIONAL = 3;
 
-	    protected $_cacheTag = 'customer_credit_talexan';
+        const CACHE_TAG = 'customer_credit_talexan';
 
-	    protected $_eventPrefix = 'customer_credit_talexan';
+        protected $_cacheTag = 'customer_credit_talexan';
 
-	    protected function _construct()
-	    {
-		    $this->_init('Talexan\Credit\Model\ResourceModel\Coin');
-	    }
+        protected $_eventPrefix = 'customer_credit_talexan';
 
-	    public function getIdentities()
-	    {
-	    	return [self::CACHE_TAG . '_' . $this->getId()];
-	    }
+        protected function _construct()
+        {
+            $this->_init('Talexan\Credit\Model\ResourceModel\Coin');
+        }
 
-	    public function getDefaultValues()
-	    {
-	    	$values = [];
+        public function getIdentities()
+        {
+            return [self::CACHE_TAG . '_' . $this->getId()];
+        }
 
-	    	return $values;
-	    }
+        public function getDefaultValues()
+        {
+            $values = [];
+
+            return $values;
+        }
+
+        public function getTypes($type = null)
+        {
+            $types = $this->getTypesAsArray();
+            if ($type) {
+                return isset($types[$type]) ? $types[$type] : null;
+            }
+            return $types;
+        }
+
+        protected function getTypesAsArray()
+        {
+            return [
+                static::TYPE_PURCHASE_PRODUCT => __('Purchasing products'),
+                static::TYPE_SET_ADMIN => __('Credit set admin'),
+                static::TYPE_GLOBAL_PROMOTIONAL => __('Global promotional gift')
+            ];
+        }
     }

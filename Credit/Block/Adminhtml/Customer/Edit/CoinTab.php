@@ -1,10 +1,10 @@
 <?php
-    namespace Talexan\Credit\Block\Customer\Edit;
+namespace Talexan\Credit\Block\Adminhtml\Customer\Edit;
 
     use Magento\Customer\Controller\RegistryConstants;
     use Magento\Ui\Component\Layout\Tabs\TabInterface;
- 
-class Credit  extends \Magento\Framework\View\Element\Template implements TabInterface
+
+class CoinTab extends \Magento\Framework\View\Element\Template implements TabInterface
 {
     /**
      * Core registry
@@ -17,7 +17,7 @@ class Credit  extends \Magento\Framework\View\Element\Template implements TabInt
      * @param \Magento\Framework\Registry $registry
      * @param array $data
      */
- 
+
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Registry $registry,
@@ -26,14 +26,17 @@ class Credit  extends \Magento\Framework\View\Element\Template implements TabInt
         $this->_coreRegistry = $registry;
         parent::__construct($context, $data);
     }
- 
+
     /**
-     * @return string|null
+     * Get current customer id
+     *
+     * @return int
      */
-    public function getCustomerId()
+    private function getCurrentCustomerId(): int
     {
-        return $this->_coreRegistry->registry(RegistryConstants::CURRENT_CUSTOMER_ID);
+        return (int)$this->_coreRegistry->registry(RegistryConstants::CURRENT_CUSTOMER_ID);
     }
+
     /**
      * @return \Magento\Framework\Phrase
      */
@@ -48,26 +51,21 @@ class Credit  extends \Magento\Framework\View\Element\Template implements TabInt
     {
         return __('Customer Coins');
     }
+
     /**
      * @return bool
      */
     public function canShowTab()
     {
-        if ($this->getCustomerId()) {
-            return true;
-        }
-        return false;
+        return (bool)$this->getCurrentCustomerId();
     }
- 
+
     /**
      * @return bool
      */
     public function isHidden()
     {
-        if ($this->getCustomerId()) {
-            return false;
-        }
-        return true;
+        return false;
     }
     /**
      * Tab class getter
@@ -85,7 +83,7 @@ class Credit  extends \Magento\Framework\View\Element\Template implements TabInt
      */
     public function getTabUrl()
     {
-    //replace the tab with the url you want
+        //replace the tab with the url you want
         return $this->getUrl('credit/customer/coin', ['_current' => true]);
     }
     /**

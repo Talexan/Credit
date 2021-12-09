@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <loyalty_program>
+        <loyalty_programm>
             <general>
-                <enabled>0</enabled>
-                <percent_purchase>0</percent_purchase>
-                <show_message_PDP>0</show_message_PDP>
+                <enabled>1</enabled>
+                <percent_purchase>10</percent_purchase>
+                <show_message_PDP>1</show_message_PDP>
             </general>
-        </loyalty_program>
+        </loyalty_programm>
         <payment>
             <loyaltycoin>
               <title>Loyalty Coin</title>

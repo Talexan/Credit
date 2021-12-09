@@ -3,7 +3,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="customer_form">
-        	<block class="Talexan\Credit\Block\Customer\Edit\CoinTabs" name="customer_edit_coin_tab_view" >
+        	<block class="Talexan\Credit\Block\Adminhtml\Customer\Edit\CoinTab" name="customer_edit_coin_tab_view" >
                 <action method="setTabLabel">
                     <argument name="label" xsi:type="string">Customer Coins</argument>
                 </action>
