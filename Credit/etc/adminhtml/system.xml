@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="encomage" translate="label" sortOrder="1100">
+            <label>Encomage</label>
+        </tab>
+        <section id="loyalty_programm" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Loyalty Programm</label>
+            <tab>encomage</tab>
+            <resource>Talexan_Credit::config_encomage</resource>
+            <group id="general" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Encomage Coin Credit</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="percent_purchase" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Percent of purchase</label>
+                    <validate>required-entry validate-number validate-zero-or-greater</validate>
+                    <tooltip>Enter the percentage of the purchase that the buyer will receive in credit coins</tooltip>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="show_message_PDP" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Show message on PDP</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="payment">
+            <group id="loyaltycoin" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Encomage Coins</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Credit coin payment method</label>
+                    <comment>Title of payment method</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
