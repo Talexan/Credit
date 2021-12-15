@@ -10,7 +10,7 @@
         </loyalty_programm>
         <payment>
             <loyaltycoin>
-              <title>Loyalty Coin</title>
+              <title>Loyalty Credit Coin</title>
               <model>Talexan\Credit\Model\Payment\Method\LoyaltyCoin</model>
               <active>1</active>
             </loyaltycoin>

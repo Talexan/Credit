@@ -6,72 +6,45 @@ function ($, Component)
     return Component.extend({
         defaults: {
             template: 'Talexan_Credit/payment/loyaltycoin',
-            transactionResult: ''
         },
+        // Мне нечего добавить. 
+        // Попробую сказать в модели метода 
 
-        initObservable: function () {
-
+        /** @inheritdoc */
+        /* initObservable: function () {
             this._super()
-                .observe([
-                    'transactionResult'
-                ]);
+                .observe('amountLoyaltyCreditCoins');
+
             return this;
-        },
+        }, */
 
-        getCode: function() {
-            return 'Loyalty credit coins';
-        },
-
-        getData: function() {
-            return {
-                'method': this.item.method,
-                'additional_data': {
-                    'transaction_result': this.transactionResult()
-                }
-            };
-        },
-
-        getTransactionResults: function() {
-            return _.map(window.checkoutConfig.payment.loyaltycoin.transactionResults, function(value, key) {
-                return {
-                    'value': key,
-                    'transaction_result': value
-                }
-            });
-        }
-
-//       initObservable: function () {
-//
-//          this._super()
-//                .observe(['canActive', 'customerCoinsAmount']);
-//            return this;
-//        },
-/*
-        getCode: function() {
-            return 'loyaltycoin';
-        },
+        // Скорее всего данные относящиеся к заказчику
+        // должны передаваться в customerData?!
+        /* getAmountLoyaltyCreditCoins: function () {
+            return window.checkoutConfig.payment.loyaltyCreditCoins.amountCoins;
+        }, */
 
         /**
-         * Enable/Disable payment method of credit coin
-         * @returns bool
+         * Get payment method type.
+         * Этот метод определен в базовом классе
+         * и метод есть в модели метода на бэкэнде?!
          */
- /*       canActive: function() {
-            var message;
+         /* getTitle: function () {
+            // this.item.title
+            return 'Loyalty Credit Coins' + ' - You have ' + 
+                this.getAmountLoyaltyCreditCoins() +
+                ' coins!';
+        }, */
 
-            if (!window.checkout.payment.loyaltycoin.canActive){
-                this.Messages.addErrorMessage('Sorry, but You do not have enough credit coins to pay:(')
-                return false;
-            }
+        /**
+         * @return {Boolean}
+         * Проверять особо нечего!
+         */
+         /* validate: function () {
+            // Можно выолнить проверку перед размещением заказа и
+            // отправки данных на сервер. Ложь - если не отправлять
             return true;
-        },
-
-        /**
-         * Amount the customer credit coins
-         * @returns int
-         */
-   /*     customerCoinsAmount: function() {
-            return window.checkout.payment.loyaltycoin.customerCoinsAmount; 
-        }*/
+        }, */
     });
 }
 );
