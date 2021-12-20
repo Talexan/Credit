@@ -17,6 +17,8 @@ use Psr\Log\LoggerInterface;
  */
 class CustomerCoins implements DataPatchInterface
 {
+    const CUSTOMER_ATTRIBUTE_CODE = 'customer_coins';
+
     /**
      * @var ModuleDataSetupInterface
      */
@@ -96,7 +98,7 @@ class CustomerCoins implements DataPatchInterface
             // Add customer attribute with settings
             $this->customerSetup->addAttribute(
                 CustomerMetadataInterface::ENTITY_TYPE_CUSTOMER,
-                'customer_coins',
+                self::CUSTOMER_ATTRIBUTE_CODE,
                 [
                     'label' => 'Amount of credit coins',
                     'required' => 0,

@@ -1,5 +1,7 @@
-<div class="product attribute received_coin">
-    <strong class="type"><?php echo (($block->customerSession->isLoggedIn())?__(""): __("Please, Sign In.<br/>")) ?> 
-        You Will Receive <?php echo $block->getReceivedCoin()?> Coins for Purchasing this Product
-    </strong>
-</div>
+<?php if ($block->isLoyaltyCoinProgrammActive()):?>
+    <div class="product attribute received_coin">
+        <strong class="type"><?php echo (($block->getCustomerIsLoggedIn())?__(""): __("Please, Sign In.<br/>")) ?> 
+         You Will Receive up to <?php echo $block->getReceivedCoin()?> Coins for Purchasing this Product
+        </strong>
+    </div>
+<?php endif ?>

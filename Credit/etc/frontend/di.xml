@@ -3,7 +3,7 @@
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="loyalty_coin_payment_method_provider" xsi:type="object">Talexan\Credit\Model\Payment\Method\ConfigProvider</item>
+                <item name="loyalty_coin_payment_method_config_provider" xsi:type="object">Talexan\Credit\Model\LoyaltyCoinsPaymentConfigProvider</item>
             </argument>
         </arguments>
     </type>

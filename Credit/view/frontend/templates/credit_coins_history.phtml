@@ -1,0 +1,33 @@
+<?php use \Talexan\Credit\Model\Coin as TypeOccasion; ?>
+<?php $_coins = $block->getCoins(); ?>
+<?= $block->getChildHtml('info') ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Coins')) ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col status"><?= $block->escapeHtml(__('ID')) ?></th>
+                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Amount of Coins')) ?></th>
+                    <th scope="col" class="col total"><?= $block->escapeHtml(__('Occasion')) ?></th>
+                    <th scope="col" class="col date"><?= $block->escapeHtml(__('Created at')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if ($_coins && count($_coins)) : ?>
+                <?php foreach ($_coins as $_coin) : ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtml(__('ID')) ?>" class="col id"><?= $block->escapeHtml($_coin->getEntityId()) ?></td>
+                        <td data-th="<?= $block->escapeHtml(__('Amount of Coins')) ?>" class="col total"><?= $block->escapeHtml($_coin->getCoinsReceived()) ?></td>
+                        <td data-th="<?= $block->escapeHtml(__('Occasion')) ?>" class="col status"><?= /* @noEscape */ $block->escapeHtml(TypeOccasion::getTypes($_coin->getOccasion())) ?></td>
+                        <td data-th="<?= $block->escapeHtml(__('Created at')) ?>" class="col date"><?= /* @noEscape */ $block->escapeHtml($_coin->getCreatedAt()) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()) : ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+        <?php else : ?>
+            <div class="message info empty"><span><?= $block->escapeHtml($block->getEmptyCoinsMessage()) ?></span></div>
+        <?php endif ?>

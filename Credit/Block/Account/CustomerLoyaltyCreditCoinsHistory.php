@@ -1,19 +1,16 @@
 <?php
 
-namespace Talexan\Credit\Block\Customer;
-
-use \Magento\Framework\App\ObjectManager;
-use Magento\Customer\Controller\RegistryConstants;
+namespace Talexan\Credit\Block\Account;
 
 /**
  * Talexan credit history block
  */
-class CoinHistory extends \Magento\Framework\View\Element\Template
+class CustomerLoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var string
      */
-    protected $_template = 'Talexan_Credit::customer_coins_history.phtml';
+    // protected $_template = 'Talexan_Credit::customer_coins_history.phtml';
 
     /**
      * @var \Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory
@@ -30,11 +27,11 @@ class CoinHistory extends \Magento\Framework\View\Element\Template
      */
     protected $coins;
 
-     /**
-     * Core registry
-     *
-     * @var \Magento\Framework\Registry
-     */
+    /**
+    * Core registry
+    *
+    * @var \Magento\Framework\Registry
+    */
     protected $_coreRegistry;
 
     /**
@@ -53,7 +50,7 @@ class CoinHistory extends \Magento\Framework\View\Element\Template
         $this->_coinCollectionFactory = $coinCollectionFactory;
         $this->_customerSession = $customerSession;
         $this->_coreRegistry = $registry;
-        
+
         parent::__construct($context, $data);
     }
 
@@ -73,16 +70,9 @@ class CoinHistory extends \Magento\Framework\View\Element\Template
      */
     public function getCoins()
     {
- //       if (!($customerId = $this->_customerSession->getCustomerId())) {
- //           return false;
- //       }
-        $customerId = ($this->_coreRegistry->registry(RegistryConstants::CURRENT_CUSTOMER_ID))?:
-        $this->_customerSession->storage->_data['visitor_data']['customer_id'];
-
-        $probe = $this->_customerSession->storage->visitorData('customer_id');
-
-        if (!$customerId)
+        if (!($customerId = $this->_customerSession->getCustomerId())) {
             return false;
+        }
 
         $this->coins = $this->_coinCollectionFactory->create()->addFieldToSelect('*')
             ->addFieldToFilter('customer_id', $customerId)
@@ -97,11 +87,17 @@ class CoinHistory extends \Magento\Framework\View\Element\Template
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
+        // Создаю пагинацию для таблицы
         if ($this->getCoins()) {
             $pager = $this->getLayout()->createBlock(
-                \Magento\Theme\Block\Html\Pager::class, 'credit.coin.history.pager')
-                ->setCollection($this->getCoins());
+                \Magento\Theme\Block\Html\Pager::class,
+                'credit.coin.history.pager'
+            )->setCollection($this->getCoins());
+
+            // Устанавливаю в макет
             $this->setChild('pager', $pager);
+            // Наверное, надо для пагинации.
+            // По крайней мере все равно загрузку коллекции придется делять
             $this->getCoins()->load();
         }
         return $this;

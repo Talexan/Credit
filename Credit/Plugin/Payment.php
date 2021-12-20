@@ -30,12 +30,6 @@ class Payment
         \Magento\Quote\Model\Quote\Payment $subject,
         $additionalData
     ) {
-        // add your extra data here....
-        //$additionalData[KEY => VALUE];
-        $additionalData[]=
-            [self::CREDIT_COINS_ENABLED => $this->_paymentHelper->getGeneralConfig('enable'),
-             self::CREDIT_COINS_PERCENT_PURCHASE 
-                            => $this->_paymentHelper->getGeneralConfig('percent_purchase')];
 
         return $additionalData;
     }

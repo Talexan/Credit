@@ -26,21 +26,22 @@ namespace Talexan\Credit\Model;
 
         public function getDefaultValues()
         {
+            // Удалить! Предполагаю, что это нужно для тестирования
             $values = [];
 
             return $values;
         }
 
-        public function getTypes($type = null)
+        public static function getTypes($type = null)
         {
-            $types = $this->getTypesAsArray();
+            $types = self::getTypesAsArray();
             if ($type) {
                 return isset($types[$type]) ? $types[$type] : null;
             }
             return $types;
         }
 
-        protected function getTypesAsArray()
+        protected static function getTypesAsArray()
         {
             return [
                 static::TYPE_PURCHASE_PRODUCT => __('Purchasing products'),
