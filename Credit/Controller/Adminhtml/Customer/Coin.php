@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
 namespace Talexan\Credit\Controller\Adminhtml\Customer;
- 
+
 class Coin extends \Magento\Customer\Controller\Adminhtml\Index
 {
     /**
@@ -14,7 +14,6 @@ class Coin extends \Magento\Customer\Controller\Adminhtml\Index
      */
     public function execute()
     {
-       
         $this->initCurrentCustomer();
         $resultLayout = $this->resultLayoutFactory->create();
         return $resultLayout;

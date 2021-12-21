@@ -24,14 +24,6 @@ namespace Talexan\Credit\Model;
             return [self::CACHE_TAG . '_' . $this->getId()];
         }
 
-        public function getDefaultValues()
-        {
-            // Удалить! Предполагаю, что это нужно для тестирования
-            $values = [];
-
-            return $values;
-        }
-
         public static function getTypes($type = null)
         {
             $types = self::getTypesAsArray();

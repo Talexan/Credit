@@ -13,21 +13,6 @@ class LoyaltyCoin extends \Magento\Payment\Model\Method\AbstractMethod
      */
     protected $_code = self::PAYMENT_METHOD_CODE;
 
-    /**
-     * Payment Method feature
-     *
-     * @var bool
-     * @deprecated
-     */
-    protected $_canOrder = true;
-
-    /**
-     * Payment Method feature
-     *
-     * @var bool
-     * @deprecated
-     */
-    protected $_canCapture = true;
 
     /**
      * Check whether payment method can be used
@@ -61,25 +46,12 @@ class LoyaltyCoin extends \Magento\Payment\Model\Method\AbstractMethod
             return false;
         }
 
-        /* Для истории...
-                            Зачем?
-                             $paymentInfo = $this->getInfoInstance();
-
-                              if ($paymentInfo instanceof \Magento\Quote\Model\Quote\Payment) {*/
-
         $grandTotal = $quote->getGrandTotal();
 
         // Клиент неплатежеспособен!
         if ($grandTotal > $amountCreditCoins) {
             return false;
         }
-
-        /*   Для истории...    } catch (\Exception $e) {
-                   /* We cannot retrieve the payment information object instance
-                      При первом срабатывании метода
-                      payment info объект еще не сформирован!
-                      Поэтому пропустим его!
-                   */
 
         return parent::isAvailable($quote);
     }

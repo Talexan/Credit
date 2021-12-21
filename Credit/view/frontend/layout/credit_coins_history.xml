@@ -2,7 +2,7 @@
     <update handle="customer_account"/>
     <body>
         <referenceContainer name="content">            
-            <block class="Talexan\Credit\Block\Account\CustomerLoyaltyCreditCoinsHistory" name="credit.coins.history" template="Talexan_Credit::credit_coins_history.phtml" />
+            <block class="Talexan\Credit\Block\Customer\Account\Tab\LoyaltyCreditCoinsHistory" name="credit.coins.history" template="Talexan_Credit::credit_coins_history.phtml" />
             <block class="Magento\Customer\Block\Account\Dashboard" name="customer.account.link.back" template="Magento_Customer::account/link/back.phtml" cacheable="false"/>
         </referenceContainer>
     </body>

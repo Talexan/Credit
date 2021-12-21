@@ -104,6 +104,7 @@ class CustomerCoins implements DataPatchInterface
                     'required' => 0,
                     'position' => 100,
                     'system' => 0,
+                    'default' => 0,
                     'user_defined' => 1,
                     'is_used_in_grid' => 1,
                     'is_visible_in_grid' => 1,

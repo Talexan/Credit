@@ -1,11 +1,11 @@
 <?php
 namespace Talexan\Credit\Controller\Adminhtml\Amount;
 
-use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Backend\App\Action;
-use Talexan\Credit\Model\CoinFactory as ModelFactory;
-use \Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Exception\LocalizedException;
+use Talexan\Credit\Model\CoinFactory as ModelFactory;
 
 /**
  * Save User action.
@@ -26,11 +26,10 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
      */
     protected $modelFactory;
 
-     /**
-     * @var \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
-     */
+    /**
+    * @var \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface
+    */
     private $customerRepositoryInterface;
-
 
     /**
      * @param Action\Context $context
@@ -52,6 +51,7 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
      *
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @return \Magento\Framework\Controller\ResultInterface
+     * @throws LocalizedException
      */
     public function execute()
     {
@@ -59,7 +59,7 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($data) {
-            
+
             /** @var \Talexan\UsersList\Model\Users $model */
             $model = $this->modelFactory->create();
 
@@ -73,14 +73,12 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
                     $this->messageManager->addErrorMessage(__('Sorry, I can`t complete the transaction with the coin.'));
                     return $resultRedirect->setPath('*/*/');
                 }
-            }
-            else
-            {
+            } else {
                 $this->messageManager->addErrorMessage(__('Sorry, something went wrong: customer id.'));
                 throw new LocalizedException(__('Sorry, something went wrong: customer id.'));
             }
 
-            $historyData = ['customer_id' => $customerId, 
+            $historyData = ['customer_id' => $customerId,
                             'occasion' => 'Added by admin',
                             'coins_received' =>$data['input_coins']];
             $model->setData($historyData);
@@ -101,6 +99,6 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
      */
     protected function _isAllowed()
     {
-         return true; //$this->_authorization->isAllowed(self::ADMIN_RESOURCE);
+        return true; //$this->_authorization->isAllowed(self::ADMIN_RESOURCE);
     }
 }

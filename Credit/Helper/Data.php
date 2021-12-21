@@ -5,7 +5,7 @@ namespace Talexan\Credit\Helper;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
 
-class LoyaltyData extends AbstractHelper
+class Data extends AbstractHelper
 {
     /**
      * $this->helperData->getGeneralConfig('enable');
@@ -25,5 +25,15 @@ class LoyaltyData extends AbstractHelper
     public function getGeneralConfig($code, $storeId = null)
     {
         return $this->getConfigValue(self::XML_PATH_LOAYLTY_PROGRAM . 'general/' . $code, $storeId);
+    }
+
+    /**
+     * Calculate received coins
+     * @param float $price
+     * @return float|int
+     */
+    public function calculateReceivedCoins($price)
+    {
+        return $this->getGeneralConfig('percent_purchase') * $price /100;
     }
 }
