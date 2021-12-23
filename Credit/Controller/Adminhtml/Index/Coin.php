@@ -3,7 +3,7 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Talexan\Credit\Controller\Adminhtml\Customer;
+namespace Talexan\Credit\Controller\Adminhtml\Index;
 
 class Coin extends \Magento\Customer\Controller\Adminhtml\Index
 {
@@ -14,9 +14,10 @@ class Coin extends \Magento\Customer\Controller\Adminhtml\Index
      */
     public function execute()
     {
+        /** Customer initialization ???*/
         $this->initCurrentCustomer();
-        $resultLayout = $this->resultLayoutFactory->create();
-        return $resultLayout;
+
+        return $this->resultLayoutFactory->create();
     }
 
     /**

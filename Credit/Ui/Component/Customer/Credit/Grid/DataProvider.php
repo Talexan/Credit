@@ -1,10 +1,10 @@
 <?php
 namespace Talexan\credit\Ui\Component\Customer\Credit\Grid;
 
-use Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory as CollectionFactory;
-use Magento\Ui\DataProvider\Modifier\PoolInterface as PoolInterface;
+use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\App\RequestInterface as Request;
-use \Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Ui\DataProvider\Modifier\PoolInterface as PoolInterface;
+use Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory as CollectionFactory;
 
 /**
  * DataProvider for user edit form ui.
@@ -22,16 +22,10 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
     protected $customerRepositoryInterface;
 
     /**
-     * @var Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory
-     */
-    protected $collectionFactory;
-
-    /**
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
      * @param Request $request
-     * @param CustomerRepositoryInterface $customerRepositoryInterface
      * @param CollectionFactory $collectionFactory
      * @param array $meta
      * @param array $data
@@ -42,7 +36,6 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         $primaryFieldName,
         $requestFieldName,
         Request $request,
-        CustomerRepositoryInterface $customerRepositoryInterface,
         CollectionFactory $collectionFactory,
         array $meta = [],
         array $data = [],
@@ -50,9 +43,7 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
     ) {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
         $this->request = $request;
-        $this->customerRepositoryInterface = $customerRepositoryInterface;
-        $this->collectionFactory = $collectionFactory;
-        $this->collection = $this->collectionFactory->create();
+        $this->collection = $collectionFactory->create();
     }
 
     /**
@@ -61,36 +52,25 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
      * @return array
      */
     public function getData()
-    {        
-        return $this->prepareData(parent::getData());
-    }
+    {
+        $customerId = (int)$this->getRequest()->getParam('id');
 
-     /**
-     * Prepare form user data
-     * @param array $data
-     * @return array
-     */
-
-    public function prepareData($data){
-
-        $customerId = $this->request->getParam('id');
-
-        if($customerId){
+        if ($customerId) {
             try {
-                    $this->getCollection()
+                $this->getCollection()
                     ->addFieldToSelect('*')
                     ->addFieldToFilter('customer_id', $customerId)
-                    ->setOrder('created_at','DESC')
-                    ->load();        
+                    ->setOrder('created_at', 'DESC')
+                    ->load();
             } catch (\Exception $e) {
                 // display error message
                 $this->messageManager->addErrorMessage($e->getMessage());
-                return $data;
+                return parent::getData();
             }
 
             return $this->getCollection()->getData();
         }
 
-        return $data;
+        return parent::getData();
     }
 }

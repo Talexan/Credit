@@ -4,9 +4,10 @@
     <body>
         <referenceBlock name="customer_form">
         	<block class="Talexan\Credit\Block\Adminhtml\Customer\Edit\CoinTab" name="customer_edit_coin_tab_view" >
-                <action method="setTabLabel">
+                <!--<action method="setTabLabel">
                     <argument name="label" xsi:type="string">Customer Coins</argument>
-                </action>
+                </action>-->
+                <uiComponent name="credit_history_listing"/>
             </block>
         </referenceBlock>    
     </body>
