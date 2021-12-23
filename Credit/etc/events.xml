@@ -10,4 +10,7 @@
     <event name="checkout_submit_all_after">
         <observer name="loyaltycoin_payment_gateway_data_assign" instance="Talexan\Credit\Observer\LoyaltyCoinsAccrualAndHistoryAccruals" />
     </event>
+    <event name="adminhtml_customer_save_after">
+        <observer name="loyaltycoin_admin_assign" instance="Talexan\Credit\Observer\LoyaltyCoinsAdminSave" />
+    </event>
 </config>

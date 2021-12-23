@@ -77,14 +77,15 @@ class LoyaltyCoinsAccrualAndHistoryAccruals implements ObserverInterface
         }
 
         $quote = $observer->getEvent()->getQuote();
+        $customerId = $quote->getCustomerId();
 
         try {
             $creditCoins = ($quote->getPayment()->getMethod() ==
                 \Talexan\Credit\Model\Method\LoyaltyCoin::PAYMENT_METHOD_CODE) ?
                 -$quote->getSubtotal() : $this->helper->calculateReceivedCoins($quote->getSubtotal());
 
-            $this->setLoyaltyCreditCoinsInCustomAttribute($quote, $creditCoins);
-            $this->setHistoryLoyaltyCreditCoins($quote, $creditCoins);
+            $this->setLoyaltyCreditCoinsInCustomAttribute($customerId, $creditCoins);
+            $this->setHistoryLoyaltyCreditCoins($customerId, $creditCoins);
         } catch (\Exception $e) {
 
             // лог ошибки...
@@ -105,32 +106,33 @@ class LoyaltyCoinsAccrualAndHistoryAccruals implements ObserverInterface
 
     /**
      * write coins into History Loyalty Credit Coins table
-     * @param \Magento\Quote\Model\Quote $quote
+     * @param int $customerId
      * @param  float $creditCoins
+     * @param int $occasion
      * @return void
      * @throws \Magento\Framework\Exception\AlreadyExistsException
      */
-    public function setHistoryLoyaltyCreditCoins(\Magento\Quote\Model\Quote $quote, float  $creditCoins)
+    public function setHistoryLoyaltyCreditCoins(int $customerId, float  $creditCoins, $occasion = Coin::TYPE_PURCHASE_PRODUCT)
     {
-        $customerId = $quote->getCustomerId();
         $history = $this->coinFactory->create();
         $history->setData('customer_id', $customerId)
                 ->setData('coins_received', $creditCoins)
-                ->setData('occasion', Coin::TYPE_PURCHASE_PRODUCT);
+                ->setData('occasion', $occasion);
         $this->coinResourceModel->save($history);
     }
 
     /**
      * write coins into customer custom attribute
-     * @param \Magento\Quote\Model\Quote $quote
+     * @param int $customerId
      * @param  float $creditCoins
      * @return void
-     * @throws \Exception
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws \Magento\Framework\Exception\State\InputMismatchException
      */
-    public function setLoyaltyCreditCoinsInCustomAttribute(\Magento\Quote\Model\Quote $quote, float  $creditCoins)
+    public function setLoyaltyCreditCoinsInCustomAttribute(int $customerId, float  $creditCoins)
     {
-        $customerId = $quote->getCustomerId();
-
         /** @var \Magento\Customer\Model\Data\Customer */
         $customerData = $this->customerRepository->getById($customerId);
         $oldCreditCoins = $customerData

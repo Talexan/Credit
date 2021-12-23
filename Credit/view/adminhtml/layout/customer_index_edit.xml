@@ -7,7 +7,6 @@
                 <!--<action method="setTabLabel">
                     <argument name="label" xsi:type="string">Customer Coins</argument>
                 </action>-->
-                <uiComponent name="credit_history_listing"/>
             </block>
         </referenceBlock>    
     </body>

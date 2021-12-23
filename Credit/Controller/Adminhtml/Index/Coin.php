@@ -8,9 +8,9 @@ namespace Talexan\Credit\Controller\Adminhtml\Index;
 class Coin extends \Magento\Customer\Controller\Adminhtml\Index
 {
     /**
-     * Customer grid
+     * Customer loyalty credit coins history grid
      *
-     * @return \Magento\Framework\View\Result\Page
+     * @return \Magento\Framework\View\Result\Layout
      */
     public function execute()
     {

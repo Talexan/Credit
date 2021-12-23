@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
-    <container name="root" label="Root">
-        <uiComponent name="credit_history_listing"/>
+    <container name="content" label="Root">
+        <block class="Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab\LoyaltyCoinsChangeForm" name="admin.customer.loyalty.coins.change.form">
+            <arguments>
+                <argument name="target_form" xsi:type="string">customer_form</argument>
+            </arguments>
+        </block>
+        <block class="Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab\LoyaltyCoinsHistoryListing" name="admin.customer.loyalty.coins.history.grid"/>
     </container>
 </layout>

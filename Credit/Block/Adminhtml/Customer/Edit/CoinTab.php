@@ -13,7 +13,7 @@ class CoinTab extends \Magento\Backend\Block\Widget\Form\Generic implements TabI
     /**
      * @var string
      */
-    protected $_template = 'Talexan_Credit::tab/customercoins.phtml';
+    //  protected $_template = 'Talexan_Credit::tab/customercoins.phtml';
 
     /**
      * @var \Magento\Customer\Api\CustomerRepositoryInterface
@@ -99,7 +99,7 @@ class CoinTab extends \Magento\Backend\Block\Widget\Form\Generic implements TabI
     public function getTabUrl()
     {
         //replace the tab with the url you want
-        return ''; //$this->getUrl('credit/customer/coin', ['_current' => true]);
+        return $this->getUrl('credit/index/coin', ['_current' => true]);
     }
     /**
      * Tab should be loaded trough Ajax call
@@ -108,72 +108,6 @@ class CoinTab extends \Magento\Backend\Block\Widget\Form\Generic implements TabI
      */
     public function isAjaxLoaded()
     {
-        return false; //true;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function _prepareForm()
-    {
-        $this->initForm();
-
-        return $this;
-    }
-
-    /**
-     * Init form values
-     *
-     * @return $this
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function initForm()
-    {
-        if (!$this->canShowTab()) {
-            return $this;
-        }
-
-        $form = $this->_formFactory->create();
-        $form->setHtmlIdPrefix('_customer_coins');
-        $this->setForm($form);
-        /** @var $fieldset \Magento\Framework\Data\Form\Element\Fieldset */
-        $fieldset = $form->addFieldset('coins_fieldset', ['legend' => __('Customer Coins Balance')]);
-
-        $fieldset->addField(
-            'amount_coins',
-            'text',
-            [
-                'name' => 'amount_coins',
-                'label' => __('Amount of credit coins under the loyalty program '),
-                'title' => __('Customer coins'),
-                'comment' => __('Amount of credit coins under the loyalty program'),
-                'value' => $this->getCustomerCoins(),
-                'data-form-part' => $this->getData('target_form'),
-            ]
-        )->setReadonly(true);
-
-        $fieldset->addField(
-            'change_coins',
-            'text',
-            [
-                'name' => 'change_coins',
-                'label' => __('Increase the customer\'s account by the specified amount '),
-                'title' => __('Change coins'),
-                'comment' => __('Increase the customer\'s account by the specified amount'),
-                'data-form-part' => $this->getData('target_form'),
-
-            ]
-        );
-
-        return $this;
-    }
-
-    public function getCustomerCoins()
-    {
-        /** @var \Magento\Customer\Model\Data\Customer */
-        $customerData = $this->customerRepository->getById($this->getCurrentCustomerId());
-        return $customerData
-            ->getCustomAttribute(\Talexan\Credit\Setup\Patch\Data\CustomerCoins::CUSTOMER_ATTRIBUTE_CODE)
-            ->getValue();
+        return true;
     }
 }
