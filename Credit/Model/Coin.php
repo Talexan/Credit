@@ -24,7 +24,7 @@ namespace Talexan\Credit\Model;
             return [self::CACHE_TAG . '_' . $this->getId()];
         }
 
-        public static function getTypes($type = null)
+        public function getTypes($type = null)
         {
             $types = self::getTypesAsArray();
             if ($type) {
@@ -33,7 +33,7 @@ namespace Talexan\Credit\Model;
             return $types;
         }
 
-        protected static function getTypesAsArray()
+        protected function getTypesAsArray()
         {
             return [
                 static::TYPE_PURCHASE_PRODUCT => __('Purchasing products'),

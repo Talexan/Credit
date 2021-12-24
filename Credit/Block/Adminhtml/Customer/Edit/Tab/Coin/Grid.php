@@ -14,7 +14,7 @@ use Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory;
  * @api
  * @since 100.0.2
  */
-class LoyaltyCoinsHistoryGrid extends Extended
+class Grid extends Extended
 {
     /**
      * Core registry

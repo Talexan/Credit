@@ -13,7 +13,7 @@ class Coin extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 
     protected function _construct()
     {
-        $this->_init('customer_credit_talexan', 'entity_id');
+        $this->_init('customer_credit_history', 'entity_id');
     }
 
 }

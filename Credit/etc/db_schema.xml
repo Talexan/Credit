@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="customer_credit_talexan" resource="default" engine="innodb" comment="Credit History of Customers">
+    <table name="customer_credit_history" resource="default" engine="innodb" comment="Credit History of Customers">
         <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" padding="10"
                 comment="Entity Id"/>
         <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" padding="10" comment="Customer Id"/>

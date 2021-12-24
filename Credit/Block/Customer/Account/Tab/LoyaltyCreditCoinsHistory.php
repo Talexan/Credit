@@ -8,11 +8,6 @@ namespace Talexan\Credit\Block\Customer\Account\Tab;
 class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
 {
     /**
-     * @var string
-     */
-    // protected $_template = 'Talexan_Credit::customer_coins_history.phtml';
-
-    /**
      * @var \Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory
      */
     protected $coinCollectionFactory;
@@ -84,21 +79,21 @@ class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
      */
     public function getCoinsCollection()
     {
-        $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : $this->beginPage;
+        //  $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : $this->beginPage;
 
-        $pageSize = ($this->getRequest()->getParam('limit')) ?
-            $this->getRequest()->getParam('limit') :
-            $this->availableLimitsPages[array_key_first($this->availableLimitsPages)]; // set minimum records
+//        $pageSize = ($this->getRequest()->getParam('limit')) ?
+//            $this->getRequest()->getParam('limit') :
+//            $this->availableLimitsPages[array_key_first($this->availableLimitsPages)]; // set minimum records
 
-        if (!$this->coins || $this->currentPage != $page || $this->currentLimitPages != $pageSize) {
+        if (!$this->coins /*|| $this->currentPage != $page || $this->currentLimitPages != $pageSize*/) {
             $this->coins = $this->coinCollectionFactory->create()->addFieldToSelect('*')
                 ->addFieldToFilter('customer_id', $this->getCustomerId())
-                ->setPageSize($pageSize)
-                ->setCurPage($page)
+               // ->setPageSize($pageSize)
+                //->setCurPage($page)
                 ->setOrder('created_at', 'desc')->load();
 
-            $this->currentPage = $page;
-            $this->currentLimitPages = $pageSize;
+            // $this->currentPage = $page;
+          //  $this->currentLimitPages = $pageSize;
         }
 
         return $this->coins;

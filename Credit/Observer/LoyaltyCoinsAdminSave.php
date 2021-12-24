@@ -2,11 +2,27 @@
 
 namespace Talexan\Credit\Observer;
 
-use Talexan\Credit\Observer\LoyaltyCoinsAccrualAndHistoryAccruals as Observer;
+use Magento\Framework\Event\ObserverInterface;
 use Talexan\Credit\Model\Coin;
+use Talexan\Credit\Helper\Data;
 
-class LoyaltyCoinsAdminSave extends Observer
+class LoyaltyCoinsAdminSave implements ObserverInterface
 {
+    /**
+     * @var Data
+     */
+    protected $helper;
+
+    /**
+     * Constructor
+     * @param \Talexan\Credit\Helper\Data $helper
+     * @param LoggerInterface $logger
+     */
+    public function __construct(
+        Data $helper
+    ) {
+        $this->helper = $helper;
+    }
 
     /**
      * @param \Magento\Framework\Event\Observer $observer
@@ -22,7 +38,7 @@ class LoyaltyCoinsAdminSave extends Observer
         $customerId = $data['customer_id'];
         $coins = $data['change_coins'];
 
-        $this->setLoyaltyCreditCoinsInCustomAttribute($customerId, $coins);
-        $this->setHistoryLoyaltyCreditCoins($customerId, $coins, Coin::TYPE_SET_ADMIN);
+        $this->helper->setLoyaltyCreditCoinsInCustomAttribute($customerId, $coins);
+        $this->helper->setHistoryLoyaltyCreditCoins($customerId, $coins, Coin::TYPE_SET_ADMIN);
     }
 }

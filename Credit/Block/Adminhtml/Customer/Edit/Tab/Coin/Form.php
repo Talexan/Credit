@@ -9,7 +9,7 @@ use Magento\Framework\Data\FormFactory;
 use Magento\Framework\Registry;
 use Magento\Customer\Controller\RegistryConstants;
 
-class LoyaltyCoinsChangeForm extends Generic
+class Form extends Generic
 {
     /**
      * @var \Magento\Customer\Api\CustomerRepositoryInterface

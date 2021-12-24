@@ -48,7 +48,7 @@ class Grid extends \Magento\Backend\App\Action
         $response->setHeader('Content-type', 'text/plain');
 
         $layout = $this->layoutFactory->create();
-        $block = $layout->createBlock('\Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab\Coin\LoyaltyCoinsHistoryGrid');
+        $block = $layout->createBlock('\Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab\Coin\Grid');
 
         $response->setContents($block->toHtml());
         return $response;

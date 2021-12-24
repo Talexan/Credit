@@ -47,9 +47,8 @@ class Coin extends \Magento\Backend\Block\Widget\Form\Generic implements TabInte
      */
     private function getCurrentCustomerId(): int
     {
-        $customerId = ((int)$this->_coreRegistry->registry(RegistryConstants::CURRENT_CUSTOMER_ID)) ?:
+        return ((int)$this->_coreRegistry->registry(RegistryConstants::CURRENT_CUSTOMER_ID)) ?:
             (int)$this->getRequest()->getParam('id');
-        return $customerId;
     }
 
     /**
