@@ -131,16 +131,6 @@ class LoyaltyCoinsHistoryGrid extends Extended
         return parent::_prepareColumns();
     }
 
-    public function getRowUrl($row)
-    {
-        return $this->getUrl(
-            'catalog/product/edit',
-            [
-                'customerId' => $this->getCurrentCustomerId()
-            ]
-        );
-    }
-
     /**
      * Get current customer id
      *
