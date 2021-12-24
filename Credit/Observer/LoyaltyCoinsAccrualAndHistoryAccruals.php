@@ -82,7 +82,7 @@ class LoyaltyCoinsAccrualAndHistoryAccruals implements ObserverInterface
         try {
             $creditCoins = ($quote->getPayment()->getMethod() ==
                 \Talexan\Credit\Model\Method\LoyaltyCoin::PAYMENT_METHOD_CODE) ?
-                -$quote->getSubtotal() : $this->helper->calculateReceivedCoins($quote->getSubtotal());
+                -$quote->getGrandTotal() : $this->helper->calculateReceivedCoins($quote->getSubtotal());
 
             $this->setLoyaltyCreditCoinsInCustomAttribute($customerId, $creditCoins);
             $this->setHistoryLoyaltyCreditCoins($customerId, $creditCoins);
