@@ -1,5 +1,5 @@
 <?php
-namespace Talexan\Credit\Block\Adminhtml\Customer\Edit;
+namespace Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab;
 
 use Magento\Backend\Block\Template\Context;
 use Magento\Customer\Api\CustomerRepositoryInterface;
@@ -8,7 +8,7 @@ use Magento\Framework\Data\FormFactory;
 use Magento\Framework\Registry;
 use Magento\Ui\Component\Layout\Tabs\TabInterface;
 
-class CoinTab extends \Magento\Backend\Block\Widget\Form\Generic implements TabInterface
+class Coin extends \Magento\Backend\Block\Widget\Form\Generic implements TabInterface
 {
     /**
      * @var string

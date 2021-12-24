@@ -1,6 +1,6 @@
 <?php
 
-namespace Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab;
+namespace Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab\Coin;
 
 use Magento\Backend\Block\Template\Context;
 use Magento\Backend\Block\Widget\Form\Generic;

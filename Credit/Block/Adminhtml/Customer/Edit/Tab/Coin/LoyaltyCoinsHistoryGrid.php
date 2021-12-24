@@ -1,9 +1,5 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-namespace Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab;
+namespace Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab\Coin;
 
 use Magento\Backend\Block\Template\Context;
 use Magento\Backend\Block\Widget\Grid\Extended;
@@ -18,7 +14,7 @@ use Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory;
  * @api
  * @since 100.0.2
  */
-class LoyaltyCoinsHistoryListing extends Extended
+class LoyaltyCoinsHistoryGrid extends Extended
 {
     /**
      * Core registry
@@ -58,10 +54,19 @@ class LoyaltyCoinsHistoryListing extends Extended
     {
         parent::_construct();
         $this->setId('coinsHistoryGrid');
-        //$this->setDefaultSort('created_at');
-        //$this->setDefaultDir('desc');
+
+        $this->setUseAjax(true);
 
         $this->setEmptyText(__('No Coins History Found'));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getGridUrl()
+    {
+        // return $this->getUrl('credit/*/coin', ['_current' => true]);
+        return $this->getUrl('credit/ajax/grid', ['_current' => true]);
     }
 
     /**
@@ -95,6 +100,7 @@ class LoyaltyCoinsHistoryListing extends Extended
                 'type' => 'text',
                 'align' => 'center',
                 'index' => 'occasion',
+                'renderer' => '\Talexan\Credit\Block\Adminhtml\Customer\Edit\Tab\Coin\Renderer\OccasionMap',
                 'default' => ' ---- '
             ]
         );
@@ -123,6 +129,16 @@ class LoyaltyCoinsHistoryListing extends Extended
         );
 
         return parent::_prepareColumns();
+    }
+
+    public function getRowUrl($row)
+    {
+        return $this->getUrl(
+            'catalog/product/edit',
+            [
+                'customerId' => $this->getCurrentCustomerId()
+            ]
+        );
     }
 
     /**
