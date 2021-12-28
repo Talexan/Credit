@@ -39,14 +39,11 @@ class LoyaltyCoinsAccrualAndHistoryAccruals implements ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        // Проверить, что кредит действует
         if (!$this->isCreditEnable()) {
             return;
         }
 
-        // 1. Проверить, что пользователь залогинился, т. е. он не гость
         if ($observer->getEvent()->getQuote()->getCustomerIsGuest()) {
-            //   $this->messageManager->addErrorMessage('Please, register and you can earn on purchases');
             return;
         }
 
@@ -62,7 +59,6 @@ class LoyaltyCoinsAccrualAndHistoryAccruals implements ObserverInterface
             $this->helper->setHistoryLoyaltyCreditCoins($customerId, $creditCoins);
         } catch (\Exception $e) {
 
-            // лог ошибки...
             /** @var Psr\Log\LoggerInterface $this */
             $this->logger->err($e->getMessage());
             return;

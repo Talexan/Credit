@@ -48,14 +48,4 @@ class Coin extends \Magento\Backend\App\Action
         }
         return $this->resultLayoutFactory->create();
     }
-
-    /**
-     * Customer grid
-     *
-     * @return \Magento\Framework\View\Result\Page
-     */
-    /*public function dispatch(\Magento\Framework\App\RequestInterface $request)
-    {
-        return $this->execute();
-    }*/
 }

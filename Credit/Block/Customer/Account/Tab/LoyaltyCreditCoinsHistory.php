@@ -32,31 +32,11 @@ class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
      */
     protected $coins = null;
 
-    /**
-     * @var array
-     */
-    protected $availableLimitsPages;
-
-    /**
-     * @var int
-     */
-    protected $beginPage = 1;
-
-    /**
-     * @var int
-     */
-    protected $currentPage = 0;
-
-    /**
-     * @var int
-     */
-    protected $currentLimitPages = 0;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory $coinCollectionFactory
      * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Magento\Theme\Block\Html\Pager $pager
      * @param \Talexan\Credit\Model\CoinFactory $modelFactory
      * @param array $data
      */
@@ -64,7 +44,6 @@ class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory $coinCollectionFactory,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Theme\Block\Html\Pager $pager,
         \Talexan\Credit\Model\CoinFactory $modelFactory,
         array $data = []
     ) {
@@ -72,7 +51,6 @@ class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
         $this->customerSession = $customerSession;
         $this->modelFactory = $modelFactory;
         $this->model = $this->modelFactory->create();
-        $this->availableLimitsPages = $pager->getAvailableLimit();
 
         parent::__construct($context, $data);
     }
