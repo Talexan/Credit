@@ -13,6 +13,16 @@ class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
     protected $coinCollectionFactory;
 
     /**
+     * @var \Talexan\Credit\Model\Coin
+     */
+    protected $model;
+
+    /**
+     * @var \Talexan\Credit\Model\CoinFactory
+     */
+    protected $modelFactory;
+
+    /**
      * @var \Magento\Customer\Model\Session
      */
     protected $customerSession;
@@ -47,6 +57,7 @@ class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
      * @param \Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory $coinCollectionFactory
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Theme\Block\Html\Pager $pager
+     * @param \Talexan\Credit\Model\CoinFactory $modelFactory
      * @param array $data
      */
     public function __construct(
@@ -54,10 +65,13 @@ class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
         \Talexan\Credit\Model\ResourceModel\Coin\CollectionFactory $coinCollectionFactory,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Theme\Block\Html\Pager $pager,
+        \Talexan\Credit\Model\CoinFactory $modelFactory,
         array $data = []
     ) {
         $this->coinCollectionFactory = $coinCollectionFactory;
         $this->customerSession = $customerSession;
+        $this->modelFactory = $modelFactory;
+        $this->model = $this->modelFactory->create();
         $this->availableLimitsPages = $pager->getAvailableLimit();
 
         parent::__construct($context, $data);
@@ -79,21 +93,10 @@ class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
      */
     public function getCoinsCollection()
     {
-        //  $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : $this->beginPage;
-
-//        $pageSize = ($this->getRequest()->getParam('limit')) ?
-//            $this->getRequest()->getParam('limit') :
-//            $this->availableLimitsPages[array_key_first($this->availableLimitsPages)]; // set minimum records
-
-        if (!$this->coins /*|| $this->currentPage != $page || $this->currentLimitPages != $pageSize*/) {
+        if (!$this->coins) {
             $this->coins = $this->coinCollectionFactory->create()->addFieldToSelect('*')
                 ->addFieldToFilter('customer_id', $this->getCustomerId())
-               // ->setPageSize($pageSize)
-                //->setCurPage($page)
-                ->setOrder('created_at', 'desc')->load();
-
-            // $this->currentPage = $page;
-          //  $this->currentLimitPages = $pageSize;
+                ->setOrder('created_at', 'desc');
         }
 
         return $this->coins;
@@ -156,5 +159,13 @@ class LoyaltyCreditCoinsHistory extends \Magento\Framework\View\Element\Template
     public function getEmptyCoinsMessage()
     {
         return __('You have placed no coins.');
+    }
+
+    /**
+     * @return \Talexan\Credit\Model\Coin
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 }

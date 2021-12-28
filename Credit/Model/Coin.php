@@ -8,11 +8,11 @@ namespace Talexan\Credit\Model;
         const TYPE_SET_ADMIN = 2;
         const TYPE_GLOBAL_PROMOTIONAL = 3;
 
-        const CACHE_TAG = 'customer_credit_talexan';
+        const CACHE_TAG = 'customer_credit_history';
 
-        protected $_cacheTag = 'customer_credit_talexan';
+        protected $_cacheTag = 'customer_credit_history';
 
-        protected $_eventPrefix = 'customer_credit_talexan';
+        protected $_eventPrefix = 'customer_credit_history';
 
         protected function _construct()
         {

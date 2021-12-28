@@ -2,7 +2,6 @@
 
 namespace Talexan\Credit\Helper;
 
-use Magento\CatalogImportExport\Model\Import\Proxy\Product\ResourceModel;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
@@ -42,13 +41,13 @@ class Data extends AbstractHelper
      * Data constructor.
      * @param Context $context
      * @param CoinFactory $coinFactory
-     * @param ResourceModel $coinResourceModel
+     * @param CoinsResourceModel $coinResourceModel
      * @param CustomerRepositoryInterface $customerRepository
      */
     public function __construct(
         Context $context,
         CoinFactory $coinFactory,
-        ResourceModel $coinResourceModel,
+        CoinsResourceModel $coinResourceModel,
         CustomerRepositoryInterface $customerRepository
     ) {
         $this->coinFactory = $coinFactory;

@@ -1,6 +1,6 @@
-<?php use \Talexan\Credit\Model\Coin as TypeOccasion; ?>
-<?php $_coins = $block->getCoinsCollection(); ?>
-<?php if ($_coins && count($_coins)) : ?>
+<?php /** @var \Talexan\Credit\Block\Customer\Account\Tab\LoyaltyCreditCoinsHistory $block */ ?>
+<?php $coins = $block->getCoinsCollection() ?>
+<?php if ($coins && count($coins)) : ?>
     <div class="table-wrapper orders-history">
         <table class="data table table-order-items history" id="my-orders-table">
             <caption class="table-caption"><?= $block->escapeHtml(__('Coins')) ?></caption>
@@ -13,16 +13,16 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($_coins as $_coin) : ?>
+            <?php foreach ($coins as $coin) : ?>
                 <tr>
                     <td data-th="<?= $block->escapeHtml(__('ID')) ?>"
-                        class="col id"><?= $block->escapeHtml($_coin->getEntityId()) ?></td>
+                        class="col id"><?= $block->escapeHtml($coin->getEntityId()) ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Amount of Coins')) ?>"
-                        class="col total"><?= $block->escapeHtml($_coin->getCoinsReceived()) ?></td>
+                        class="col total"><?= $block->escapeHtml($coin->getCoinsReceived()) ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Occasion')) ?>" class="col status"><?= /* @noEscape */
-                        $block->escapeHtml(TypeOccasion::getTypes($_coin->getOccasion())) ?></td>
+                        $block->escapeHtml($block->getModel()->getTypes($coin->getOccasion())) ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Created at')) ?>" class="col date"><?= /* @noEscape */
-                        $block->escapeHtml($_coin->getCreatedAt()) ?></td>
+                        $block->escapeHtml($coin->getCreatedAt()) ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

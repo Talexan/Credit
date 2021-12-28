@@ -2,7 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="product.info.price">
-            <block class="Talexan\Credit\Block\Product\View\CoinsThatCustomerWillReceiveUponPurchase" name="coins-will-be-received" template="Talexan_Credit::coins-received-upon-purchase.phtml" after="-" ifconfig="loyalty_programm/general/show_message_PDP" />
+            <block class="Talexan\Credit\Block\Product\View\CoinsThatCustomerWillReceiveUponPurchase" name="coins.will.be.received" template="Talexan_Credit::coins-received-upon-purchase.phtml" after="-" ifconfig="loyalty_programm/general/show_message_PDP" />
         </referenceContainer>
     </body>
 </page>

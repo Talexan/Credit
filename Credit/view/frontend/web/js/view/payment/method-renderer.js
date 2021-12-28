@@ -9,7 +9,6 @@ define(['uiComponent', 'Magento_Checkout/js/model/payment/renderer-list'],
             }
         );
 
-        /** Add view logic here if needed */
         return Component.extend({});
     }
 );

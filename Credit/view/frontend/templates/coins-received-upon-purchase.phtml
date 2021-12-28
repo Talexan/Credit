@@ -5,7 +5,7 @@
 ?>
 <div class="product attribute received_coin">
     <strong class="type">
-        <?php if ($block->getCustomerIsLoggedIn()): ?>
+        <?php if (!$block->getCustomerIsLoggedIn()): ?>
             <p><?= __("Please, Sign In."); ?></p>
         <?php endif; ?>
         <?= __("You Will Receive up to %1 Coins for Purchasing this Product", $block->getReceivedCoin()); ?>
