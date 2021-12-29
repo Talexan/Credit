@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="\Talexan\Credit\Api\LoyaltyCoinsHistoryRepositoryInterface"
+                type="\Talexan\Credit\Model\ResourceModel\LoyaltyCoinsHistoryRepository" />
+    <preference for="\Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterface" type="\Talexan\Credit\Model\Data\LoyaltyCoinsHistory" />
+    <preference for="\Talexan\Credit\Api\Data\LoyaltyCoinsHistorySearchResultInterface"
+                type="\Talexan\Credit\Model\LoyaltyCoinsHistorySearchResult" />
+</config>
