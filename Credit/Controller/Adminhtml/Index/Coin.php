@@ -16,18 +16,12 @@ class Coin extends \Magento\Backend\App\Action
     protected $resultLayoutFactory;
 
     /**
-     * @var RedirectFactory
-     */
-    protected $resultRedirectFactory;
-
-    /**
      * @param Context $context
      * @param LayoutFactory $layoutFactory
      */
     public function __construct(
         Context $context,
         LayoutFactory $layoutFactory
-        //RedirectFactory $redirectFactory
     ) {
         $this->resultLayoutFactory = $layoutFactory;
 
@@ -40,9 +34,6 @@ class Coin extends \Magento\Backend\App\Action
      */
     public function execute()
     {
-        /** Customer initialization ???*/
-        //$this->initCurrentCustomer();
-
         if (!$this->getRequest()->getParam('id')) {
             return $this->_redirect($this->_redirect->getRefererUrl());
         }

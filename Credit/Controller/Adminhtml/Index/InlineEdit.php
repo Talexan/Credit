@@ -3,24 +3,18 @@ namespace  Talexan\Credit\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
 use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Controller\Adminhtml\Index\InlineEdit as MagentoInlineEdit;
 use Magento\Customer\Model\AddressRegistry;
+use Talexan\Credit\Helper\Data as CreditData;
 use Talexan\Credit\Model\Coin;
-use Talexan\Credit\Model\CoinFactory;
-use Talexan\Credit\Model\ResourceModel\Coin as CoinsResourceModel;
-use Magento\Customer\Api\Data\CustomerInterface;
 
 class InlineEdit extends MagentoInlineEdit
 {
     /**
-     * @var CoinFactory
+     * @var CreditData
      */
-    protected $coinFactory;
-
-    /**
-     * @var CoinsResourceModel
-     */
-    protected $coinsResource;
+    protected $helperCredit;
 
     /**
      * @param Action\Context $context
@@ -29,8 +23,7 @@ class InlineEdit extends MagentoInlineEdit
      * @param \Magento\Customer\Model\Customer\Mapper $customerMapper
      * @param \Magento\Framework\Api\DataObjectHelper $dataObjectHelper
      * @param \Psr\Log\LoggerInterface $logger
-     * @param CoinFactory $coinFactory
-     * @param CoinsResourceModel $coinsResource
+     * @param CreditData $helperCredit
      * @param AddressRegistry|null $addressRegistry
      * @param \Magento\Framework\Escaper $escaper
      */
@@ -41,13 +34,11 @@ class InlineEdit extends MagentoInlineEdit
         \Magento\Customer\Model\Customer\Mapper $customerMapper,
         \Magento\Framework\Api\DataObjectHelper $dataObjectHelper,
         \Psr\Log\LoggerInterface $logger,
-        CoinFactory $coinFactory,
-        CoinsResourceModel $coinsResource,
+        CreditData $helperCredit,
         AddressRegistry $addressRegistry = null,
         \Magento\Framework\Escaper $escaper = null
     ) {
-        $this->coinFactory = $coinFactory;
-        $this->coinsResource = $coinsResource;
+        $this->helperCredit = $helperCredit;
 
         parent::__construct(
             $context,
@@ -83,21 +74,10 @@ class InlineEdit extends MagentoInlineEdit
         $newCreditCoins = $customer->getCustomAttribute(\Talexan\Credit\Setup\Patch\Data\CustomerCoins::CUSTOMER_ATTRIBUTE_CODE)
             ->getValue();
 
-        $this->setHistoryLoyaltyCreditCoins($customer->getId(), $newCreditCoins - $oldCreditCoins);
-    }
-
-    /**
-     * @param int $customerId
-     * @param float $creditCoins
-     * @param int $occasion
-     * @throws \Magento\Framework\Exception\AlreadyExistsException
-     */
-    public function setHistoryLoyaltyCreditCoins(int $customerId, float  $creditCoins, $occasion = Coin::TYPE_SET_ADMIN)
-    {
-        $history = $this->coinFactory->create();
-        $history->setData('customer_id', $customerId)
-            ->setData('coins_received', $creditCoins)
-            ->setData('occasion', $occasion);
-        $this->coinsResource->save($history);
+        $this->helperCredit->setHistoryLoyaltyCreditCoins(
+            $customer->getId(),
+            $newCreditCoins - $oldCreditCoins,
+            Coin::TYPE_SET_ADMIN
+        );
     }
 }

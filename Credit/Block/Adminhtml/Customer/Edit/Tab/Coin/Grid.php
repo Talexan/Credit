@@ -65,7 +65,6 @@ class Grid extends Extended
      */
     public function getGridUrl()
     {
-        // return $this->getUrl('credit/*/coin', ['_current' => true]);
         return $this->getUrl('credit/ajax/grid', ['_current' => true]);
     }
 

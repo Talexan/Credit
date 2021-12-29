@@ -16,10 +16,6 @@ use Talexan\Credit\Model\ResourceModel\Coin as CoinsResourceModel;
  */
 class Data extends AbstractHelper
 {
-    /**
-     * $this->helperData->getGeneralConfig('enable');
-     */
-
     const XML_PATH_LOAYLTY_PROGRAM = 'loyalty_programm/';
 
     /**
@@ -107,7 +103,6 @@ class Data extends AbstractHelper
             ->setData('occasion', $occasion);
         $this->coinResourceModel->save($history);
     }
-    //todo Move to helper
 
     /**
      * write coins into customer custom attribute

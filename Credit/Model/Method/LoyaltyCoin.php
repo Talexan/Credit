@@ -13,7 +13,6 @@ class LoyaltyCoin extends \Magento\Payment\Model\Method\AbstractMethod
      */
     protected $_code = self::PAYMENT_METHOD_CODE;
 
-
     /**
      * Check whether payment method can be used
      *
@@ -23,14 +22,10 @@ class LoyaltyCoin extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function isAvailable(\Magento\Quote\Api\Data\CartInterface $quote = null)
     {
-        /** True for guest customers, false for logged in customers
-        * @var bool|null*/
         if (($quote) ? $quote->getCustomerIsGuest() : false) {
             return false;
         }
 
-        // 2.
-        /** @todo Проверить платежеспособность*/
         /** @var \Magento\Customer\Model\Data\Customer */
         $customerData = $quote->getCustomer();
 
@@ -38,17 +33,13 @@ class LoyaltyCoin extends \Magento\Payment\Model\Method\AbstractMethod
             $customerLoyaltyCreditCoinsAttribute = $customerData
             ->getCustomAttribute(self::CUSTOMER_ATTRIBUTE_CODE);
             $amountCreditCoins = $customerLoyaltyCreditCoinsAttribute
-            // возвращает 0, если не было setCustomAttribute() до этого?
             ->getValue();
         } catch (\Throwable $e) {
-            // если что-то не так с монетами, то
-            // метод не доступен!
             return false;
         }
 
         $grandTotal = $quote->getGrandTotal();
 
-        // Клиент неплатежеспособен!
         if ($grandTotal > $amountCreditCoins) {
             return false;
         }

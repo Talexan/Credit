@@ -113,7 +113,6 @@ class CustomerCoins implements DataPatchInterface
                 ]
             );
 
-            // Add attribute to default attribute set and group
             $this->customerSetup->addAttributeToSet(
                 CustomerMetadataInterface::ENTITY_TYPE_CUSTOMER,
                 CustomerMetadataInterface::ATTRIBUTE_SET_ID_CUSTOMER,
@@ -121,7 +120,6 @@ class CustomerCoins implements DataPatchInterface
                 'customer_coins'
             );
 
-            // Get the newly created attribute's model
             $attribute = $this->customerSetup->getEavConfig()
                 ->getAttribute(Customer::ENTITY, 'customer_coins');
 
@@ -130,13 +128,11 @@ class CustomerCoins implements DataPatchInterface
                 'adminhtml_customer'
            ]);
 
-            // Save attribute using its resource model
             $this->attributeResource->save($attribute);
         } catch (Exception $e) {
-            $this->logger->err($e->getMessage());
+            $this->logger->error($e->getMessage());
         }
 
-        // End setup
         $this->moduleDataSetup->getConnection()->endSetup();
     }
 }

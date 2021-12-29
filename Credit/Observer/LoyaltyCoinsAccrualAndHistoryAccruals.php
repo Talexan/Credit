@@ -58,9 +58,7 @@ class LoyaltyCoinsAccrualAndHistoryAccruals implements ObserverInterface
             $this->helper->setLoyaltyCreditCoinsInCustomAttribute($customerId, $creditCoins);
             $this->helper->setHistoryLoyaltyCreditCoins($customerId, $creditCoins);
         } catch (\Exception $e) {
-
-            /** @var Psr\Log\LoggerInterface $this */
-            $this->logger->err($e->getMessage());
+            $this->logger->error($e->getMessage());
             return;
         }
     }
