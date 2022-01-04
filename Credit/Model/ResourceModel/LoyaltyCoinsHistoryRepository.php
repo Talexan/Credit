@@ -3,9 +3,9 @@
 namespace Talexan\Credit\Model\ResourceModel;
 
 use Magento\Framework\ObjectManagerInterface;
+use Talexan\Credit\Api\Data\CoinsHistorySearchResultInterface;
 use Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterface;
-use Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterfaceFactory;
-use Talexan\Credit\Api\Data\LoyaltyCoinsHistorySearchResultInterfaceFactory as SearchResultFactory;
+use Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterfaceFactory; //Factory?
 use Talexan\Credit\Model\CoinFactory;
 use Talexan\Credit\Model\ResourceModel\CoinFactory as CoinsResourceModelFactory;
 
@@ -17,7 +17,7 @@ class LoyaltyCoinsHistoryRepository implements \Talexan\Credit\Api\LoyaltyCoinsH
     protected $coinsFactory;
 
     /**
-     * @var CoinsResourceModel
+     * @var CoinsResourceModelFactory
      */
     protected $resourceCoinsFactory;
 
@@ -32,37 +32,38 @@ class LoyaltyCoinsHistoryRepository implements \Talexan\Credit\Api\LoyaltyCoinsH
     protected $coinsHistoryFactory;
 
     /**
-     * @var SearchResultFactory
+     * @var CoinsHistorySearchResultInterface
      */
-    protected $searchResultFactory;
+    protected $searchResult; //Factory;
 
     /**
      * LoyaltyCoinsHistoryRepository constructor.
      * @param CoinFactory $coinFactory
      * @param \Talexan\Credit\Model\ResourceModel\CoinFactory $resourceCoinsFactory
      * @param LoyaltyCoinsHistoryInterfaceFactory $coinsHistoryFactory
-     * @param SearchResultFactory $searchResultFactory
+     * @param CoinsHistorySearchResultInterface $searchResult
      * @param ObjectManagerInterface $objectManager
      */
     public function __construct(
         CoinFactory $coinFactory,
         CoinsResourceModelFactory $resourceCoinsFactory,
         LoyaltyCoinsHistoryInterfaceFactory $coinsHistoryFactory,
-        SearchResultFactory $searchResultFactory,
+        \Talexan\Credit\Model\CoinsHistorySearchResult $searchResult,
         ObjectManagerInterface $objectManager
     ) {
         $this->coinsFactory = $coinFactory;
         $this->resourceCoinsFactory = $resourceCoinsFactory;
         $this->coinsHistoryFactory = $coinsHistoryFactory;
-        $this->searchResultFactory = $searchResultFactory;
+        $this->searchResult = $searchResult;
         $this->objectManager = $objectManager;
     }
 
     /**
- *
- * @param \Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterface $coinsHistory
- * @return \Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterface
- */
+     *
+     * @param \Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterface $coinsHistory
+     * @return \Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterface
+     * @throws \Magento\Framework\Exception\AlreadyExistsException
+     */
     public function save(\Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterface $coinsHistory)
     {
         $coinsModel = $this->coinsFactory->create();
@@ -102,18 +103,18 @@ class LoyaltyCoinsHistoryRepository implements \Talexan\Credit\Api\LoyaltyCoinsH
             LoyaltyCoinsHistoryInterface::OCCASION,
             LoyaltyCoinsHistoryInterface::CREATED_AT
         ]);
-        return $this->coinsHistoryFactory->create('\Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterface', $data);
+        return $this->coinsHistoryFactory->create($data);
     }
 
     /**
      * Retrieve list coins history which match a specified criteria.
      *
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \Talexan\Credit\Api\Data\LoyaltyCoinsHistorySearchResultInterface
+     * @return \Talexan\Credit\Api\Data\CoinsHistorySearchResultInterface
      */
     public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria)
     {
-        $searchResults = $this->searchResultFactory->create();
+        $searchResults = $this->searchResult; //Factory->create();
 
         $searchResults->setSearchCriteria($searchCriteria);
 

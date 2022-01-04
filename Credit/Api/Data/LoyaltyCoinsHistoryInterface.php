@@ -1,6 +1,6 @@
 <?php
 
-namespace  Talexan\Credit\Api\Data;
+namespace Talexan\Credit\Api\Data;
 
 
 /**

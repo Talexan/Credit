@@ -6,6 +6,8 @@ use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Store\Model\ScopeInterface;
+use Talexan\Credit\Api\Data\LoyaltyCoinsHistoryInterfaceFactory;
+use Talexan\Credit\Api\LoyaltyCoinsHistoryRepositoryInterface;
 use Talexan\Credit\Model\Coin;
 use Talexan\Credit\Model\CoinFactory;
 use Talexan\Credit\Model\ResourceModel\Coin as CoinsResourceModel;
@@ -19,19 +21,19 @@ class Data extends AbstractHelper
     const XML_PATH_LOAYLTY_PROGRAM = 'loyalty_programm/';
 
     /**
-     * @var Coin
-     */
-    protected $coinFactory;
-
-    /**
-     * @var CoinsResourceModel
-     */
-    protected $coinResourceModel;
-
-    /**
      * @var CustomerRepositoryInterface
      */
     protected $customerRepository;
+
+    /**
+     * @var LoyaltyCoinsHistoryInterfaceFactory
+     */
+    protected $coinsHistoryFactory;
+
+    /**
+     * @var LoyaltyCoinsHistoryRepositoryInterface
+     */
+    protected $coinsHistoryRepository;
 
     /**
      * Data constructor.
@@ -39,16 +41,19 @@ class Data extends AbstractHelper
      * @param CoinFactory $coinFactory
      * @param CoinsResourceModel $coinResourceModel
      * @param CustomerRepositoryInterface $customerRepository
+     * @param LoyaltyCoinsHistoryInterfaceFactory $coinsHistoryFactory
+     * @param LoyaltyCoinsHistoryRepositoryInterface $coinsHistoryRepository
      */
     public function __construct(
         Context $context,
-        CoinFactory $coinFactory,
-        CoinsResourceModel $coinResourceModel,
-        CustomerRepositoryInterface $customerRepository
+        CustomerRepositoryInterface $customerRepository,
+        LoyaltyCoinsHistoryInterfaceFactory $coinsHistoryFactory,
+        LoyaltyCoinsHistoryRepositoryInterface $coinsHistoryRepository
     ) {
-        $this->coinFactory = $coinFactory;
-        $this->coinResourceModel = $coinResourceModel;
         $this->customerRepository = $customerRepository;
+
+        $this->coinsHistoryFactory = $coinsHistoryFactory;
+        $this->coinsHistoryRepository = $coinsHistoryRepository;
 
         parent::__construct($context);
     }
@@ -93,15 +98,12 @@ class Data extends AbstractHelper
      * @param  float $creditCoins
      * @param int $occasion
      * @return void
-     * @throws \Magento\Framework\Exception\AlreadyExistsException
      */
     public function setHistoryLoyaltyCreditCoins(int $customerId, float  $creditCoins, $occasion = Coin::TYPE_PURCHASE_PRODUCT)
     {
-        $history = $this->coinFactory->create();
-        $history->setData('customer_id', $customerId)
-            ->setData('coins_received', $creditCoins)
-            ->setData('occasion', $occasion);
-        $this->coinResourceModel->save($history);
+        $coinsHistory = $this->coinsHistoryFactory->create();
+        $coinsHistory->setCustomerId($customerId)->setCoinsReceived($creditCoins)->setOccasion($occasion);
+        $this->coinsHistoryRepository->save($coinsHistory);
     }
 
     /**
